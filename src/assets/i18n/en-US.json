@@ -1,0 +1,17 @@
+{
+  "aria": {
+    "communityIcon": "Community icon",
+    "dashboardIcon": "Dashboard icon",
+    "desktopAppIcon": "Desktop App icon",
+    "gamesIcon": "Games icon",
+    "multiplayerRobot": "Multiplayer Robot logo",
+    "premiumIcon": "Premium icon",
+    "sideNavIcon": "Side nav toggle icon",
+    "sideNavButton": "Toggle side nav"
+  },
+  "community": "Community",
+  "dashboard": "Dashboard",
+  "desktopApp": "Desktop App",
+  "games": "Games",
+  "premium": "Premium"
+}
