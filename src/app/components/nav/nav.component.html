@@ -15,44 +15,64 @@
       ></mat-icon>
     </mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item [routerLink]="['/dashboard']">
-        <mat-icon [attr.aria-label]="'aria.dashboardIcon' | translate">
-          dashboard
-        </mat-icon>
-        {{ "dashboard" | translate }}
-      </a>
-      <a mat-list-item [routerLink]="['/games']">
+      <a
+        mat-list-item
+        [class.selected]="activatedRoute$ | async | routeIsSelected: 'games'"
+        [routerLink]="['/games']"
+      >
         <mat-icon
           [attr.aria-label]="'aria.gamesIcon' | translate"
           svgIcon="games"
         ></mat-icon>
         {{ "games" | translate }}
       </a>
-      <a mat-list-item [routerLink]="['/community']">
+      <a
+        mat-list-item
+        [class.selected]="
+          activatedRoute$ | async | routeIsSelected: 'community'
+        "
+        [routerLink]="['/community']"
+      >
         <mat-icon [attr.aria-label]="'aria.communityIcon' | translate">
           group
         </mat-icon>
         {{ "community" | translate }}
       </a>
-      <a mat-list-item [routerLink]="['/desktop-app']">
+      <a
+        mat-list-item
+        [class.selected]="
+          activatedRoute$ | async | routeIsSelected: 'desktop-app'
+        "
+        [routerLink]="['/desktop-app']"
+      >
         <mat-icon [attr.aria-label]="'aria.desktopAppIcon' | translate">
           desktop_windows
         </mat-icon>
         {{ "desktopApp" | translate }}
       </a>
-      <a mat-list-item [routerLink]="['/boost']">
+      <a
+        mat-list-item
+        [class.selected]="activatedRoute$ | async | routeIsSelected: 'boost'"
+        [routerLink]="['/boost']"
+      >
         <mat-icon [attr.aria-label]="'aria.boostIcon' | translate">
           card_membership
         </mat-icon>
         {{ "boost" | translate }}
       </a>
-      <a mat-list-item [routerLink]="['/admin']">
+      <a
+        mat-list-item
+        [class.selected]="activatedRoute$ | async | routeIsSelected: 'admin'"
+        [routerLink]="['/admin']"
+      >
         <mat-icon [attr.aria-label]="'aria.adminIcon' | translate">
           security
         </mat-icon>
         {{ "admin" | translate }}
       </a>
     </mat-nav-list>
+    <div class="sidenav-spacer"></div>
+    <div class="user-footer"></div>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar class="app-bar" color="primary">

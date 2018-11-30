@@ -1,0 +1,51 @@
+@import "../../../mrobot-colors"
+
+.sidenav-container
+  height: 100%
+
+/deep/ .mat-drawer-inner-container
+  display: flex
+  flex-direction: column
+
+.sidenav
+  width: 200px
+
+  .logo
+    margin-top: 6px
+    height: auto
+    width: auto
+
+  .mat-nav-list
+    .mat-icon
+      margin-right: 10px
+    .mat-list-item
+      width: auto
+      height: 38px
+      margin: 5px 8px
+      border-radius: 5px
+      &.selected
+        color: map-get($mrobot-primary, 100)
+        background-color: rgba(map-get($mrobot-primary, 500), 0.5)
+
+  .mat-toolbar
+    background: inherit
+
+  .mat-toolbar-single-row
+    padding: 0 8px
+
+  .sidenav-spacer
+    flex: 1 1 auto
+
+  .user-footer
+    flex: 0 0 100px
+
+.app-bar
+  position: sticky
+  top: 0
+  z-index: 1
+
+  .drawer-button
+    margin-right: 10px
+
+  .page-title
+    flex: 1 1 auto

@@ -3,7 +3,6 @@
     "adminIcon": "Admin icon",
     "boostIcon": "Boost icon",
     "communityIcon": "Community icon",
-    "dashboardIcon": "Dashboard icon",
     "desktopAppIcon": "Desktop App icon",
     "gamesIcon": "Games icon",
     "multiplayerRobot": "Multiplayer Robot logo",
@@ -13,9 +12,10 @@
   "admin": "Admin",
   "boost": "Boost",
   "community": "Community",
-  "dashboard": "Dashboard",
   "desktopApp": "Desktop App",
   "games": "Games",
   "loading": "Loading",
-  "pageNotFound": "Page Not Found"
+  "myGames": "My Games",
+  "pageNotFound": "Page Not Found",
+  "publicGames": "Public Games"
 }

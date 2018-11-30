@@ -4,28 +4,31 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations"
 
 import { LayoutModule } from "@angular/cdk/layout"
 import { HttpClient, HttpClientModule } from "@angular/common/http"
+import { FlexLayoutModule } from "@angular/flex-layout"
 import {
   MatButtonModule,
   MatIconModule,
   MatListModule,
   MatSidenavModule,
+  MatTabsModule,
   MatToolbarModule,
 } from "@angular/material"
 import { StoreDevtoolsModule } from "@ngrx/store-devtools"
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core"
 import { TranslateHttpLoader } from "@ngx-translate/http-loader"
 import { environment } from "../environments/environment"
-import { AdminComponent } from "./admin/admin.component"
 import { AppRoutingModule } from "./app-routing.module"
 import { AppComponent } from "./app.component"
-import { BoostComponent } from "./boost/boost.component"
-import { CommunityComponent } from "./community/community.component"
-import { DashboardComponent } from "./dashboard/dashboard.component"
-import { DesktopAppComponent } from "./desktop-app/desktop-app.component"
-import { GamesComponent } from "./games/games.component"
-import { NavComponent } from "./nav/nav.component"
-import { PageNotFoundComponent } from "./page-not-found/page-not-found.component"
-import { TitleFromRouteDataPipe } from "./title-from-route-data.pipe"
+import { AdminComponent } from "./components/admin/admin.component"
+import { BoostComponent } from "./components/boost/boost.component"
+import { CommunityComponent } from "./components/community/community.component"
+import { DesktopAppComponent } from "./components/desktop-app/desktop-app.component"
+import { GamesComponent } from "./components/games/games.component"
+import { NavComponent } from "./components/nav/nav.component"
+import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component"
+import { RouteIsSelectedPipe } from "./pipes/route-is-selected.pipe"
+import { TitleFromRouteDataPipe } from "./pipes/title-from-route-data.pipe"
+import { AppStoreModule } from "./store/app-store.module"
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http)
@@ -35,7 +38,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   declarations: [
     AppComponent,
     NavComponent,
-    DashboardComponent,
     GamesComponent,
     CommunityComponent,
     DesktopAppComponent,
@@ -43,6 +45,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     PageNotFoundComponent,
     TitleFromRouteDataPipe,
     AdminComponent,
+    RouteIsSelectedPipe,
   ],
   imports: [
     BrowserModule,
@@ -57,12 +60,15 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     }),
     AppRoutingModule,
     LayoutModule,
+    FlexLayoutModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatTabsModule,
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+    AppStoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
