@@ -1,17 +1,19 @@
 {
   "aria": {
+    "boostIcon": "Boost icon",
     "communityIcon": "Community icon",
     "dashboardIcon": "Dashboard icon",
     "desktopAppIcon": "Desktop App icon",
-    "envoyIcon": "Envoy icon",
     "gamesIcon": "Games icon",
     "multiplayerRobot": "Multiplayer Robot logo",
     "sideNavIcon": "Side nav toggle icon",
     "sideNavButton": "Toggle side nav"
   },
+  "boost": "Boost",
   "community": "Community",
   "dashboard": "Dashboard",
-  "envoy": "Envoy",
   "desktopApp": "Desktop App",
-  "games": "Games"
+  "games": "Games",
+  "loading": "Loading",
+  "pageNotFound": "Page Not Found"
 }
