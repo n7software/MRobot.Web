@@ -1,5 +1,6 @@
 {
   "aria": {
+    "adminIcon": "Admin icon",
     "boostIcon": "Boost icon",
     "communityIcon": "Community icon",
     "dashboardIcon": "Dashboard icon",
@@ -9,6 +10,7 @@
     "sideNavIcon": "Side nav toggle icon",
     "sideNavButton": "Toggle side nav"
   },
+  "admin": "Admin",
   "boost": "Boost",
   "community": "Community",
   "dashboard": "Dashboard",

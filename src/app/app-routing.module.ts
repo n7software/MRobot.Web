@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core"
 import { RouterModule, Routes } from "@angular/router"
+import { AdminComponent } from "./admin/admin.component"
 import { BoostComponent } from "./boost/boost.component"
 import { CommunityComponent } from "./community/community.component"
 import { DashboardComponent } from "./dashboard/dashboard.component"
@@ -37,6 +38,11 @@ const routes: Routes = [
     path: "boost",
     component: BoostComponent,
     data: { title: "boost" },
+  },
+  {
+    path: "admin",
+    component: AdminComponent,
+    data: { title: "Admin" },
   },
   {
     path: "**",

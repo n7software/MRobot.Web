@@ -46,6 +46,12 @@
         </mat-icon>
         {{ "boost" | translate }}
       </a>
+      <a mat-list-item [routerLink]="['/admin']">
+        <mat-icon [attr.aria-label]="'aria.adminIcon' | translate">
+          security
+        </mat-icon>
+        {{ "admin" | translate }}
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
