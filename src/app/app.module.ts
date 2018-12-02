@@ -29,6 +29,7 @@ import { HelpComponent } from "./components/help/help.component"
 import { NavComponent } from "./components/nav/nav.component"
 import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component"
 import { SettingsComponent } from "./components/settings/settings.component"
+import { GraphqlModule } from "./graphql/graphql.module"
 import { RouteIsSelectedPipe } from "./pipes/route-is-selected.pipe"
 import { TitleFromRouteDataPipe } from "./pipes/title-from-route-data.pipe"
 import { AppStoreModule } from "./store/app-store.module"
@@ -75,6 +76,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatRadioModule,
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     AppStoreModule,
+    GraphqlModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
