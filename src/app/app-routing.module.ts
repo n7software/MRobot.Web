@@ -5,7 +5,9 @@ import { BoostComponent } from "./components/boost/boost.component"
 import { CommunityComponent } from "./components/community/community.component"
 import { DesktopAppComponent } from "./components/desktop-app/desktop-app.component"
 import { GamesComponent } from "./components/games/games.component"
+import { HelpComponent } from "./components/help/help.component"
 import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component"
+import { SettingsComponent } from "./components/settings/settings.component"
 
 const routes: Routes = [
   {
@@ -16,32 +18,42 @@ const routes: Routes = [
   {
     path: "games",
     component: GamesComponent,
-    data: { title: "games" },
+    data: { title: "games", level: 1 },
   },
   {
     path: "community",
     component: CommunityComponent,
-    data: { title: "community" },
+    data: { title: "community", level: 1 },
   },
   {
     path: "desktop-app",
     component: DesktopAppComponent,
-    data: { title: "desktopApp" },
+    data: { title: "desktopApp", level: 1 },
   },
   {
     path: "boost",
     component: BoostComponent,
-    data: { title: "boost" },
+    data: { title: "boost", level: 1 },
   },
   {
     path: "admin",
     component: AdminComponent,
-    data: { title: "Admin" },
+    data: { title: "admin", level: 1 },
+  },
+  {
+    path: "settings",
+    component: SettingsComponent,
+    data: { title: "settings", level: 1 },
+  },
+  {
+    path: "help",
+    component: HelpComponent,
+    data: { title: "help", level: 1 },
   },
   {
     path: "**",
     component: PageNotFoundComponent,
-    data: { title: "pageNotFound" },
+    data: { title: "pageNotFound", level: 1 },
   },
 ]
 

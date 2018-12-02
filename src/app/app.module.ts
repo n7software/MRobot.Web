@@ -9,6 +9,7 @@ import {
   MatButtonModule,
   MatIconModule,
   MatListModule,
+  MatRadioModule,
   MatSidenavModule,
   MatTabsModule,
   MatToolbarModule,
@@ -24,8 +25,10 @@ import { BoostComponent } from "./components/boost/boost.component"
 import { CommunityComponent } from "./components/community/community.component"
 import { DesktopAppComponent } from "./components/desktop-app/desktop-app.component"
 import { GamesComponent } from "./components/games/games.component"
+import { HelpComponent } from "./components/help/help.component"
 import { NavComponent } from "./components/nav/nav.component"
 import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component"
+import { SettingsComponent } from "./components/settings/settings.component"
 import { RouteIsSelectedPipe } from "./pipes/route-is-selected.pipe"
 import { TitleFromRouteDataPipe } from "./pipes/title-from-route-data.pipe"
 import { AppStoreModule } from "./store/app-store.module"
@@ -46,6 +49,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     TitleFromRouteDataPipe,
     AdminComponent,
     RouteIsSelectedPipe,
+    SettingsComponent,
+    HelpComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,6 +72,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatIconModule,
     MatListModule,
     MatTabsModule,
+    MatRadioModule,
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     AppStoreModule,
   ],

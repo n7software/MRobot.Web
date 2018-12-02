@@ -4,7 +4,6 @@ import { MatSidenav } from "@angular/material"
 import {
   ActivatedRouteSnapshot,
   ActivationEnd,
-  Data,
   Router,
 } from "@angular/router"
 import { Observable, of } from "rxjs"
@@ -16,6 +15,21 @@ import { filter, first, map, tap } from "rxjs/operators"
   styleUrls: ["./nav.component.sass"],
 })
 export class NavComponent {
+  public navItems = [
+    { title: "games", route: "games", icon: "games" },
+    { title: "community", route: "community", icon: "account-group" },
+    {
+      title: "desktopApp",
+      route: "desktop-app",
+      icon: "monitor",
+      divider: true,
+    },
+    { title: "boost", route: "boost", icon: "eureka" },
+    { title: "settings", route: "settings", icon: "settings" },
+    { title: "help", route: "help", icon: "information" },
+    { title: "admin", route: "admin", icon: "security", divider: true },
+  ]
+
   public activatedRoute$: Observable<ActivatedRouteSnapshot>
 
   @ViewChild("drawer")

@@ -1,11 +1,8 @@
 @import "../../../mrobot-colors"
 
-.sidenav-container
-  height: 100%
-
-/deep/ .mat-drawer-inner-container
-  display: flex
-  flex-direction: column
+.sidenav-container,
+.drawer-content
+  height: 100vh
 
 .sidenav
   width: 200px
@@ -24,7 +21,7 @@
       margin: 5px 8px
       border-radius: 5px
       &.selected
-        color: map-get($mrobot-primary, 100)
+        color: map-get($mrobot-primary, 500-contrast)
         background-color: rgba(map-get($mrobot-primary, 500), 0.5)
 
   .mat-toolbar
@@ -33,19 +30,18 @@
   .mat-toolbar-single-row
     padding: 0 8px
 
-  .sidenav-spacer
-    flex: 1 1 auto
+  .social-links
+    padding: 10px 20px
+    .mat-icon
+      margin: 5px
 
   .user-footer
     flex: 0 0 100px
 
 .app-bar
-  position: sticky
+  position: fixed
   top: 0
-  z-index: 1
+  z-index: 999
 
   .drawer-button
     margin-right: 10px
-
-  .page-title
-    flex: 1 1 auto

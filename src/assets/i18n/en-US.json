@@ -1,21 +1,17 @@
 {
-  "aria": {
-    "adminIcon": "Admin icon",
-    "boostIcon": "Boost icon",
-    "communityIcon": "Community icon",
-    "desktopAppIcon": "Desktop App icon",
-    "gamesIcon": "Games icon",
-    "multiplayerRobot": "Multiplayer Robot logo",
-    "sideNavIcon": "Side nav toggle icon",
-    "sideNavButton": "Toggle side nav"
-  },
   "admin": "Admin",
   "boost": "Boost",
   "community": "Community",
   "desktopApp": "Desktop App",
+  "facebook": "Facebook",
   "games": "Games",
+  "gitHub": "GitHub",
+  "help": "Help",
   "loading": "Loading",
+  "mainMenu": "Main Menu",
   "myGames": "My Games",
   "pageNotFound": "Page Not Found",
-  "publicGames": "Public Games"
+  "publicGames": "Public Games",
+  "settings": "Settings",
+  "twitter": "Twitter"
 }

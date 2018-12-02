@@ -71,7 +71,6 @@
     "no-inner-html": true,
     "no-invalid-regexp": true,
     "no-irregular-whitespace": true,
-    "no-magic-numbers": [true, -1, 0, 1, 2],
     "no-multi-spaces": true,
     "no-non-null-assertion": true,
     "no-octal-literal": true,
