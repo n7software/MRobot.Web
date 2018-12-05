@@ -1,16 +1,21 @@
 import { NgModule } from "@angular/core"
 import { APOLLO_OPTIONS, ApolloModule } from "apollo-angular"
 import { HttpLink, HttpLinkModule } from "apollo-angular-link-http"
-import { InMemoryCache } from "apollo-cache-inmemory"
-import { persistCache } from "apollo-cache-persist"
 import { ApolloClientOptions } from "apollo-client"
+import { ApolloLink } from "apollo-link"
+import { cache, stateLink } from "./cache"
+import { SettingsApiService } from "./settings-api.service"
 
-const cache = new InMemoryCache()
+export function apolloFactory(httpLink: HttpLink): ApolloClientOptions<any> {
+  const http = httpLink.create({
+    uri: "http://graph.multiplayerrobot.com",
+  })
 
-persistCache({
-  cache,
-  storage: window.localStorage,
-})
+  return {
+    cache,
+    link: ApolloLink.from([stateLink, http]),
+  }
+}
 
 @NgModule({
   declarations: [],
@@ -18,17 +23,13 @@ persistCache({
     ApolloModule,
     HttpLinkModule,
   ],
-  providers: [{
-    provide: APOLLO_OPTIONS,
-    useFactory(httpLink: HttpLink): ApolloClientOptions<any> {
-      return {
-        cache,
-        link: httpLink.create({
-          uri: "http://graph.multiplayerrobot.com",
-        }),
-      }
+  providers: [
+    SettingsApiService,
+    {
+      provide: APOLLO_OPTIONS,
+      useFactory: apolloFactory,
+      deps: [HttpLink],
     },
-    deps: [HttpLink],
-  }],
+  ],
 })
 export class GraphqlModule { }

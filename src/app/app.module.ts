@@ -10,11 +10,11 @@ import {
   MatIconModule,
   MatListModule,
   MatRadioModule,
+  MatSelectModule,
   MatSidenavModule,
   MatTabsModule,
   MatToolbarModule,
 } from "@angular/material"
-import { StoreDevtoolsModule } from "@ngrx/store-devtools"
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core"
 import { TranslateHttpLoader } from "@ngx-translate/http-loader"
 import { environment } from "../environments/environment"
@@ -32,7 +32,6 @@ import { SettingsComponent } from "./components/settings/settings.component"
 import { GraphqlModule } from "./graphql/graphql.module"
 import { RouteIsSelectedPipe } from "./pipes/route-is-selected.pipe"
 import { TitleFromRouteDataPipe } from "./pipes/title-from-route-data.pipe"
-import { AppStoreModule } from "./store/app-store.module"
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http)
@@ -74,8 +73,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatListModule,
     MatTabsModule,
     MatRadioModule,
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
-    AppStoreModule,
+    MatSelectModule,
     GraphqlModule,
   ],
   providers: [],

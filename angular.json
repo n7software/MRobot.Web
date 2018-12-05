@@ -27,7 +27,7 @@
               "src/assets",
               { "glob": "mdi.svg", "input": "./node_modules/@mdi/angular-material", "output": "./assets" }
             ],
-            "styles": ["src/mrobot-theme.sass", "src/styles.sass"],
+            "styles": ["src/styles/mrobot-themes.sass", "src/styles.sass"],
             "scripts": []
           },
           "configurations": {

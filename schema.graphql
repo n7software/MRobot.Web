@@ -1,0 +1,25 @@
+enum Theme {
+  light
+  dark
+}
+
+input SettingsInput {
+  theme: Theme
+}
+
+type Settings {
+  theme: Theme
+}
+
+type Mutation {
+  saveSettings(input: SettingsInput): Settings
+}
+
+type Query {
+  settings: Settings
+}
+
+schema {
+  mutation: Mutation
+  query: Query
+}

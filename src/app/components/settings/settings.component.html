@@ -1,5 +1,28 @@
 <div fxLayout="row" fxLayoutAlign="center">
-  <div fxFlex="0 1 640px" fxFlexAlign="center" class="settings-panel">
-
+  <div
+    *ngIf="(settings$ | async); let settings"
+    fxFlex="0 1 640px"
+    fxFlexAlign="center"
+    class="settings-panel"
+  >
+    <div class="setting-row" fxLayout="row">
+      <div fxLayout="row" fxFlex="1 1 auto">
+        <span fxFlexAlign="center" class="mat-subheading-2">
+          {{ "theme" | translate }}
+        </span>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-select
+            [(value)]="settings.theme"
+            (selectionChange)="save(settings)"
+          >
+            <mat-option value="dark">{{ "dark" | translate }}</mat-option>
+            <mat-option value="light">{{ "light" | translate }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
   </div>
 </div>

@@ -1,0 +1,6 @@
+@mixin nav-theme($theme)
+  $primary: map-get($theme, primary)
+  .sidenav .mat-nav-list .mat-list-item
+    &.selected
+      color: map-get($primary, 500-contrast)
+      background-color: rgba(map-get($primary, 500), 0.5)

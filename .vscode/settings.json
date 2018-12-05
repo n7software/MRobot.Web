@@ -3,5 +3,10 @@
   "files.exclude": {
     "node_modules": true
   },
-  "cSpell.words": ["Sidenav", "hammerjs", "mrobot"]
+  "cSpell.words": [
+    "Injectable",
+    "Sidenav",
+    "hammerjs",
+    "mrobot"
+  ]
 }

@@ -5,11 +5,14 @@ import { AppModule } from "./app/app.module"
 import { environment } from "./environments/environment"
 
 import "hammerjs"
+import { initCache } from "./app/graphql/cache"
 
 if (environment.production) {
   enableProdMode()
 }
 
-platformBrowserDynamic()
-  .bootstrapModule(AppModule)
-  .catch(err => console.error(err))
+initCache().then(() =>
+  platformBrowserDynamic()
+    .bootstrapModule(AppModule)
+    .catch(err => console.error(err)),
+)
