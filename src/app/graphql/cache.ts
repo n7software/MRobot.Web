@@ -3,7 +3,6 @@ import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory"
 import { persistCache } from "apollo-cache-persist"
 import { ApolloLink } from "apollo-link"
 import { withClientState } from "apollo-link-state"
-import * as localForage from "localforage"
 import { defaults, resolvers } from "./resolvers"
 
 export let stateLink: ApolloLink
@@ -20,6 +19,6 @@ export async function initCache(): Promise<void> {
 
   await persistCache({
     cache,
-    storage: localForage as any,
+    storage: window.localStorage,
   })
 }

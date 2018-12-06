@@ -7,7 +7,7 @@ import { Settings } from "../models"
 
 const LoadSettings = gql`
   query LoadSettings {
-    settings {
+    settings @client {
       theme
     }
   }
@@ -41,8 +41,9 @@ export class SettingsApiService {
       .mutate({
         mutation: SaveSettings,
         variables: { input },
+        refetchQueries: [LoadSettings],
         update: (store, { data: { saveSettings } }) => {
-          store.writeQuery({ query: LoadSettings, data: saveSettings })
+          store.writeQuery({ query: LoadSettings, data: { settings: saveSettings } })
         },
         optimisticResponse: {
           __typename: "Mutation",
