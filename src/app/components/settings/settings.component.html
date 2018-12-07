@@ -7,12 +7,14 @@
   >
     <div class="setting-row" fxLayout="row">
       <div fxLayout="row" fxFlex="1 1 auto">
-        <span fxFlexAlign="center" class="mat-subheading-2">
-          {{ "theme" | translate }}
-        </span>
+        <div fxFlexAlign="center">
+          <div class="mat-subheading-2">{{ "webAppTheme" | translate }}</div>
+          <div class="mat-small">{{ "webAppThemeDescription" | translate }}</div>
+        </div>
       </div>
       <div>
-        <mat-form-field color="accent">
+        <mat-form-field color="accent" appearance="fill">
+          <mat-label>{{ "theme" | translate }}</mat-label>
           <mat-select
             [(value)]="settings.theme"
             (selectionChange)="save(settings)"

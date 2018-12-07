@@ -16,5 +16,7 @@
   "publicGames": "Public Games",
   "settings": "Settings",
   "theme": "Theme",
-  "twitter": "Twitter"
+  "twitter": "Twitter",
+  "webAppTheme": "Web App Theme",
+  "webAppThemeDescription": "Choose a theme for the Multiplayer Robot web app"
 }

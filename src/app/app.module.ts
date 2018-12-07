@@ -7,7 +7,9 @@ import { HttpClient, HttpClientModule } from "@angular/common/http"
 import { FlexLayoutModule } from "@angular/flex-layout"
 import {
   MatButtonModule,
+  MatCardModule,
   MatIconModule,
+  MatInputModule,
   MatListModule,
   MatRadioModule,
   MatSelectModule,
@@ -75,6 +77,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatRadioModule,
     MatSelectModule,
     GraphqlModule,
+    MatInputModule,
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

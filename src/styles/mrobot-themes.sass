@@ -2,7 +2,8 @@
 @import "./component-themes"
 @include mat-core()
 
-$mrobot-primary: mat-palette($mat-light-green)
+$mrobot-primary-dark: mat-palette($mat-light-green)
+$mrobot-primary-light: mat-palette($mat-light-green, 400)
 $mrobot-accent-dark: mat-palette($mat-cyan, A200, A400, A700)
 $mrobot-accent-light: mat-palette($mat-cyan)
 $mrobot-warn: mat-palette($mat-red)
@@ -12,13 +13,13 @@ $mrobot-warn: mat-palette($mat-red)
     background-color: map-get(map-get($theme, background), background)
 
 .mrobot-dark
-  $dark-theme: mat-dark-theme($mrobot-primary, $mrobot-accent-dark, $mrobot-warn)
+  $dark-theme: mat-dark-theme($mrobot-primary-dark, $mrobot-accent-dark, $mrobot-warn)
   @include angular-material-theme($dark-theme)
   @include root-theme($dark-theme)
   @include component-themes($dark-theme)
 
 .mrobot-light
-  $light-theme: mat-light-theme($mrobot-primary, $mrobot-accent-light, $mrobot-warn)
+  $light-theme: mat-light-theme($mrobot-primary-light, $mrobot-accent-light, $mrobot-warn)
   @include angular-material-theme($light-theme)
   @include root-theme($light-theme)
   @include component-themes($light-theme)
