@@ -69,12 +69,12 @@
         <mat-form-field color="accent">
           <mat-label>{{ "theme" | translate }}</mat-label>
           <mat-select name="theme" [(ngModel)]="settings.theme">
-            <mat-option value="dark">{{ "dark" | translate }}</mat-option>
-            <mat-option value="light">{{ "light" | translate }}</mat-option>
-            <mat-option value="king-dark">
+            <mat-option value="DARK">{{ "dark" | translate }}</mat-option>
+            <mat-option value="LIGHT">{{ "light" | translate }}</mat-option>
+            <mat-option value="KING_DARK">
               {{ "kingDark" | translate }}
             </mat-option>
-            <mat-option value="king-light">
+            <mat-option value="KING_LIGHT">
               {{ "kingLight" | translate }}
             </mat-option>
           </mat-select>

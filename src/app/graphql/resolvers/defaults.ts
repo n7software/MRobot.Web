@@ -4,7 +4,7 @@ export const defaults = {
     vacationMode: false,
     country: null,
     availableHours: [],
-    theme: "dark",
+    theme: "DARK",
     emailAddress: null,
     notifications: {
       __typename: "NotificationSettings",

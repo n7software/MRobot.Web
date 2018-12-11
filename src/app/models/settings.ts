@@ -12,7 +12,7 @@ export interface NotificationSettings {
 }
 
 export interface Settings {
-  theme: "dark" | "light" | "king-dark" | "king-light"
+  theme: "DARK" | "LIGHT" | "KING_DARK" | "KING_LIGHT"
   vacationMode: boolean
   country: string
   availableHours: number[]
