@@ -16,15 +16,13 @@ interface ResolverMap {
 
 export const resolvers: ResolverMap = {
   Mutation: {
-    saveSettings: (_, { input }, { cache }) => {
-      const settings = {
-        ...input,
-        __typename: "Settings",
-      }
+    saveSettings: (_, { clientMutationId, input }, { cache }) => {
+      input.__typename = "Settings"
+      input.notifications!.__typename = "NotificationSettings"
       cache.writeData({
-        data: { settings },
+        data: { input },
       })
-      return { saveSettings: settings }
+      return { saveSettings: { clientMutationId } }
     },
   },
 }

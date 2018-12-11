@@ -1,8 +1,10 @@
 import { Component } from "@angular/core"
 import { MatIconRegistry } from "@angular/material"
 import { DomSanitizer } from "@angular/platform-browser"
+import { ActivatedRouteSnapshot, ActivationEnd, Router } from "@angular/router"
 import { TranslateService } from "@ngx-translate/core"
-import { map } from "rxjs/operators"
+import { Observable } from "rxjs"
+import { filter, map } from "rxjs/operators"
 import { BaseComponent } from "./components/base.component"
 import { SettingsApiService } from "./graphql/settings-api.service"
 import { setupSvgIcons } from "./setup-svg-icons"
@@ -15,14 +17,18 @@ const langs = ["en-US"]
   styleUrls: ["./app.component.sass"],
 })
 export class AppComponent extends BaseComponent {
+  public activatedRoute$: Observable<ActivatedRouteSnapshot>
+
   constructor(
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
     translate: TranslateService,
     settingsApi: SettingsApiService,
+    router: Router,
   ) {
     super()
     this.subscribeToTheme(settingsApi, document.body)
+    this.subscribeToRouteData(router)
 
     setupSvgIcons(iconRegistry, sanitizer)
     translate.addLangs(langs)
@@ -40,6 +46,13 @@ export class AppComponent extends BaseComponent {
         }
         element.classList.add(`mrobot-${theme}`)
       }),
+    )
+  }
+
+  private subscribeToRouteData(router): void {
+    this.activatedRoute$ = router.events.pipe(
+      filter(e => e instanceof ActivationEnd),
+      map((e: ActivationEnd) => e.snapshot),
     )
   }
 }

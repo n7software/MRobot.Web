@@ -1,30 +1,312 @@
-<div fxLayout="row" fxLayoutAlign="center">
+<form #settingsForm="ngForm" fxLayout="row" fxLayoutAlign="center">
   <div
     *ngIf="(settings$ | async); let settings"
     fxFlex="0 1 640px"
     fxFlexAlign="center"
     class="settings-panel"
   >
-    <div class="setting-row" fxLayout="row">
-      <div fxLayout="row" fxFlex="1 1 auto">
-        <div fxFlexAlign="center">
-          <div class="mat-subheading-2">{{ "webAppTheme" | translate }}</div>
-          <div class="mat-small">{{ "webAppThemeDescription" | translate }}</div>
-        </div>
-      </div>
-      <div>
-        <mat-form-field color="accent" appearance="fill">
-          <mat-label>{{ "theme" | translate }}</mat-label>
-          <mat-select
-            [(value)]="settings.theme"
-            (selectionChange)="save(settings)"
-          >
-            <mat-option value="dark">{{ "dark" | translate }}</mat-option>
-            <mat-option value="light">{{ "light" | translate }}</mat-option>
+    <mat-card>
+      <mat-card-title class="mat-title">
+        {{ "profile" | translate }}
+      </mat-card-title>
+      <mat-card-subtitle>
+        {{ "profilePubliclyVisible" | translate }}
+      </mat-card-subtitle>
+      <mrobot-setting-row
+        [title]="'vacationMode' | translate"
+        [description]="'vacationModeDescription' | translate"
+      >
+        <mat-slide-toggle
+          color="accent"
+          name="vacationMode"
+          [aria-label]="'vacationMode' | translate"
+          [(ngModel)]="settings.vacationMode"
+        ></mat-slide-toggle>
+      </mrobot-setting-row>
+      <mat-divider></mat-divider>
+      <mrobot-setting-row
+        [title]="'country' | translate"
+        [description]="'countryDescription' | translate"
+      >
+        <mat-form-field color="accent">
+          <mat-label>{{ "country" | translate }}</mat-label>
+          <mat-select name="country" [(ngModel)]="settings.country">
+            <mat-option>{{ "unspecified" | translate }}</mat-option>
+            <mat-option
+              *ngFor="let country of countries"
+              [value]="country.code"
+            >
+              {{ country.emoji }}
+              {{ "countryCode." + country.code | translate }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
-      </div>
-    </div>
-    <mat-divider></mat-divider>
+      </mrobot-setting-row>
+      <mat-divider></mat-divider>
+      <mrobot-setting-row
+        [title]="'typicalAvailability' | translate"
+        [description]="'typicalAvailabilityDescription' | translate"
+      ></mrobot-setting-row>
+      <mat-button-toggle-group
+        name="availableHours"
+        [(ngModel)]="settings.availableHours"
+        class="hours-selector"
+        multiple="true"
+      >
+        <mat-button-toggle *ngFor="let hour of hours" [value]="hour">
+          {{ hour | hour }}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </mat-card>
+    <mat-card>
+      <mat-card-title class="mat-title">
+        {{ "appearance" | translate }}
+      </mat-card-title>
+      <mrobot-setting-row
+        [title]="'webAppTheme' | translate"
+        [description]="'webAppThemeDescription' | translate"
+      >
+        <mat-form-field color="accent">
+          <mat-label>{{ "theme" | translate }}</mat-label>
+          <mat-select name="theme" [(ngModel)]="settings.theme">
+            <mat-option value="dark">{{ "dark" | translate }}</mat-option>
+            <mat-option value="light">{{ "light" | translate }}</mat-option>
+            <mat-option value="king-dark">
+              {{ "kingDark" | translate }}
+            </mat-option>
+            <mat-option value="king-light">
+              {{ "kingLight" | translate }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mrobot-setting-row>
+    </mat-card>
+    <mat-card>
+      <mat-card-title class="mat-title">
+        {{ "discord" | translate }}
+      </mat-card-title>
+      <mrobot-setting-row
+        [title]="'connectToDiscord' | translate"
+        [description]="'connectToDiscordDescription' | translate"
+      >
+        <button
+          mat-flat-button
+          class="discord-connect"
+          (click)="onDiscordClick()"
+        >
+          <mat-icon svgIcon="discord"></mat-icon>
+          {{ "connect" | translate | uppercase }}
+        </button>
+      </mrobot-setting-row>
+    </mat-card>
+    <mat-card>
+      <mat-card-title class="mat-title">
+        {{ "notifications" | translate }}
+      </mat-card-title>
+      <mrobot-setting-row
+        [title]="'email' | translate"
+        [description]="'emailDescription' | translate"
+      >
+        <mat-slide-toggle
+          color="accent"
+          [aria-label]="'email' | translate"
+          name="emailNotifications"
+          [(ngModel)]="emailNotifications"
+          (change)="onEmailNotificationsChanged($event, settings)"
+        ></mat-slide-toggle>
+      </mrobot-setting-row>
+      <mat-divider></mat-divider>
+      <mrobot-setting-row
+        *ngIf="emailNotifications"
+        [title]="'emailAddress' | translate"
+        [description]="'emailAddressDescription' | translate"
+      >
+        <mat-form-field color="accent">
+          <mat-label>{{ "email" | translate }}</mat-label>
+          <input
+            matInput
+            required
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+            type="email"
+            name="emailAddress"
+            [(ngModel)]="settings.emailAddress"
+          />
+        </mat-form-field>
+      </mrobot-setting-row>
+      <mat-divider *ngIf="emailNotifications"></mat-divider>
+      <div class="mat-title">{{ "whatYouGetNotifiedAbout" | translate }}</div>
+      <mrobot-setting-row [title]="'gameInvitations' | translate">
+        <mat-button-toggle-group
+          multiple="true"
+          name="notifications.gameInvitations"
+          [(ngModel)]="settings.notifications.gameInvitations"
+        >
+          <mat-button-toggle
+            color="accent"
+            value="email"
+            [disabled]="!emailNotifications"
+          >
+            <mat-icon svgIcon="email"></mat-icon>
+          </mat-button-toggle>
+          <mat-button-toggle color="accent" value="discord">
+            <mat-icon svgIcon="discord"></mat-icon>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </mrobot-setting-row>
+      <mat-divider></mat-divider>
+      <mrobot-setting-row [title]="'playerJoinsGame' | translate">
+        <mat-button-toggle-group
+          multiple="true"
+          name="notifications.playerJoinedGame"
+          [(ngModel)]="settings.notifications.playerJoinedGame"
+        >
+          <mat-button-toggle
+            color="accent"
+            value="email"
+            [disabled]="!emailNotifications"
+          >
+            <mat-icon svgIcon="email"></mat-icon>
+          </mat-button-toggle>
+          <mat-button-toggle color="accent" value="discord">
+            <mat-icon svgIcon="discord"></mat-icon>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </mrobot-setting-row>
+      <mat-divider></mat-divider>
+      <mrobot-setting-row [title]="'itsMyTurn' | translate">
+        <mat-button-toggle-group
+          multiple="true"
+          name="notifications.turn"
+          [(ngModel)]="settings.notifications.turn"
+        >
+          <mat-button-toggle
+            color="accent"
+            value="email"
+            [disabled]="!emailNotifications"
+          >
+            <mat-icon svgIcon="email"></mat-icon>
+          </mat-button-toggle>
+          <mat-button-toggle color="accent" value="discord">
+            <mat-icon svgIcon="discord"></mat-icon>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </mrobot-setting-row>
+      <mat-divider></mat-divider>
+      <mrobot-setting-row [title]="'gameEnded' | translate">
+        <mat-button-toggle-group
+          multiple="true"
+          name="notifications.gameEnded"
+          [(ngModel)]="settings.notifications.gameEnded"
+        >
+          <mat-button-toggle
+            color="accent"
+            value="email"
+            [disabled]="!emailNotifications"
+          >
+            <mat-icon svgIcon="email"></mat-icon>
+          </mat-button-toggle>
+          <mat-button-toggle color="accent" value="discord">
+            <mat-icon svgIcon="discord"></mat-icon>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </mrobot-setting-row>
+      <mat-divider></mat-divider>
+      <mrobot-setting-row [title]="'turnTimerModified' | translate">
+        <mat-button-toggle-group
+          multiple="true"
+          name="notifications.turnTimerModified"
+          [(ngModel)]="settings.notifications.turnTimerModified"
+        >
+          <mat-button-toggle
+            color="accent"
+            value="email"
+            [disabled]="!emailNotifications"
+          >
+            <mat-icon svgIcon="email"></mat-icon>
+          </mat-button-toggle>
+          <mat-button-toggle color="accent" value="discord">
+            <mat-icon svgIcon="discord"></mat-icon>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </mrobot-setting-row>
+      <mat-divider></mat-divider>
+      <mrobot-setting-row [title]="'iveBeenSkipped' | translate">
+        <mat-button-toggle-group
+          multiple="true"
+          name="notifications.skipped"
+          [(ngModel)]="settings.notifications.skipped"
+        >
+          <mat-button-toggle
+            color="accent"
+            value="email"
+            [disabled]="!emailNotifications"
+          >
+            <mat-icon svgIcon="email"></mat-icon>
+          </mat-button-toggle>
+          <mat-button-toggle color="accent" value="discord">
+            <mat-icon svgIcon="discord"></mat-icon>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </mrobot-setting-row>
+      <mat-divider></mat-divider>
+      <mrobot-setting-row [title]="'gameComment' | translate">
+        <mat-button-toggle-group
+          multiple="true"
+          name="notifications.comment"
+          [(ngModel)]="settings.notifications.comment"
+        >
+          <mat-button-toggle
+            color="accent"
+            value="email"
+            [disabled]="!emailNotifications"
+          >
+            <mat-icon svgIcon="email"></mat-icon>
+          </mat-button-toggle>
+          <mat-button-toggle color="accent" value="discord">
+            <mat-icon svgIcon="discord"></mat-icon>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </mrobot-setting-row>
+      <mat-divider></mat-divider>
+      <mrobot-setting-row [title]="'privateMessageReceived' | translate">
+        <mat-button-toggle-group
+          multiple="true"
+          name="notifications.privateMessage"
+          [(ngModel)]="settings.notifications.privateMessage"
+        >
+          <mat-button-toggle
+            color="accent"
+            value="email"
+            [disabled]="!emailNotifications"
+          >
+            <mat-icon svgIcon="email"></mat-icon>
+          </mat-button-toggle>
+          <mat-button-toggle color="accent" value="discord">
+            <mat-icon svgIcon="discord"></mat-icon>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </mrobot-setting-row>
+    </mat-card>
+    <button
+      type="submit"
+      mat-fab
+      class="docked-fab"
+      [matTooltip]="'save' | translate"
+      matTooltipPosition="above"
+      (click)="save(settings)"
+      [disabled]="settingsForm.pristine"
+    >
+      <mat-icon svgIcon="content-save"></mat-icon>
+    </button>
+    <button
+      mat-mini-fab
+      class="docked-fab-secondary"
+      [matTooltip]="'resetChanges' | translate"
+      matTooltipPosition="above"
+      (click)="settingsForm.reset(initialFormValue)"
+      [disabled]="settingsForm.pristine"
+    >
+      <mat-icon svgIcon="undo-variant"></mat-icon>
+    </button>
   </div>
-</div>
+</form>

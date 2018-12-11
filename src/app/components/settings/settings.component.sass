@@ -1,11 +1,22 @@
 .settings-panel
+  margin: 20px 0 40px
+
+mat-card
   margin-bottom: 20px
 
-.setting-row
-  padding: 0 20px
-  height: 85px
-  mat-form-field
-    margin-top: 15px
+.mat-title
+  margin: 16px 0 0
 
-  .mat-subheading-2
-    margin: 0
+\:host ::ng-deep
+  .hours-selector
+    flex-wrap: wrap
+    .mat-button-toggle
+      border-left: 0 !important
+      .mat-button-toggle-button
+        width: 50px
+        height: 45px
+        font-size: 11px
+        .mat-button-toggle-label-content
+          padding: 0 8px
+  .mat-button-toggle-checked .mat-button-toggle-focus-overlay
+    border-bottom-width: 50px

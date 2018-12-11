@@ -72,7 +72,6 @@
     "no-invalid-regexp": true,
     "no-irregular-whitespace": true,
     "no-multi-spaces": true,
-    "no-non-null-assertion": true,
     "no-octal-literal": true,
     "no-regex-spaces": true,
     "no-shadowed-variable": true,

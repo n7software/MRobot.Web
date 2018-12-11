@@ -1,0 +1,10 @@
+@mixin settings-theme($theme)
+  $accent: map-get($theme, accent)
+  .mat-button-toggle-checked.mat-button-toggle-appearance-standard
+    background-color: map-get($accent, default)
+    color: map-get($accent, default-contrast)
+
+  $discord-primary: #7289da
+  .discord-connect
+    color: white
+    background-color: $discord-primary

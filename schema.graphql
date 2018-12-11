@@ -1,18 +1,66 @@
+input NotificationSettingsInput {
+  gameInvitations: Notifier[]
+  playerJoinedGame: Notifier[]
+  turn: Notifier[]
+  gameEnded: Notifier[]
+  turnTimerModified: Notifier[]
+  skipped: Notifier[]
+  comment: Notifier[]
+  privateMessage: Notifier[]
+}
+
+type NotificationSettings {
+  gameInvitations: Notifier[]
+  playerJoinedGame: Notifier[]
+  turn: Notifier[]
+  gameEnded: Notifier[]
+  turnTimerModified: Notifier[]
+  skipped: Notifier[]
+  comment: Notifier[]
+  privateMessage: Notifier[]
+}
+
+enum Notifier {
+  email
+  discord
+}
+
 enum Theme {
   light
   dark
+  king-light
+  king-dark
 }
 
 input SettingsInput {
+  vacationMode: Boolean
+  country: String
+  availableHours: Number[]
   theme: Theme
+  emailAddress: Email
+  notifications: NotificationSettingsInput
 }
 
 type Settings {
+  vacationMode: Boolean
+  country: String
+  availabileHours: Number[]
   theme: Theme
+  emailAddress: Email
+  notifications: NotificationSettings
+}
+
+type SaveSettingsResponse {
+  clientMutationId: ID
+}
+
+type CompleteDiscordConnectionResponse {
+  clientMutationId: ID
 }
 
 type Mutation {
-  saveSettings(input: SettingsInput): Settings
+  saveSettings(clientMutationId: ID, input: SettingsInput): SaveSettingsResponse
+  completeDiscordConnection(clientMutationId: ID, code: ID!): CompleteDiscordConnectionResponse
 }
 
 type Query {

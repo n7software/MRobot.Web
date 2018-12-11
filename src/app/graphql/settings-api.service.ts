@@ -3,20 +3,35 @@ import { Apollo } from "apollo-angular"
 import gql from "graphql-tag"
 import { Observable } from "rxjs"
 import { map } from "rxjs/operators"
+import { v4 } from "uuid"
 import { Settings } from "../models"
 
 const LoadSettings = gql`
   query LoadSettings {
     settings @client {
+      vacationMode
+      country
+      availableHours
       theme
+      emailAddress
+      notifications {
+        gameInvitations
+        playerJoinedGame
+        turn
+        gameEnded
+        turnTimerModified
+        skipped
+        comment
+        privateMessage
+      }
     }
   }
 `
 
 const SaveSettings = gql`
-  mutation SaveSettings($input: SettingsInput) {
-    saveSettings(input: $input) @client {
-      theme
+  mutation SaveSettings($cmid: ID, $input: SettingsInput) {
+    saveSettings(clientMutationId: $cmid, input: $input) @client {
+      clientMutationId
     }
   }
 `
@@ -36,22 +51,19 @@ export class SettingsApiService {
       .valueChanges.pipe(map(({ data }) => data.settings))
   }
 
-  public save(input: Settings): void {
-    this.apollo
+  public save(input: Settings): Observable<void> {
+    const clientMutationId = v4()
+    return this.apollo
       .mutate({
         mutation: SaveSettings,
-        variables: { input },
-        refetchQueries: [LoadSettings],
-        update: (store, { data: { saveSettings } }) => {
-          store.writeQuery({ query: LoadSettings, data: { settings: saveSettings } })
-        },
+        variables: { clientMutationId, input },
         optimisticResponse: {
           __typename: "Mutation",
           saveSettings: {
-            ...input,
+            clientMutationId,
             __typename: "Settings",
           },
         },
-      }).subscribe()
+      })
   }
 }
