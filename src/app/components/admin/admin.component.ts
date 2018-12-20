@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core"
 
 @Component({
-  selector: 'mrobot-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.sass']
+  selector: "mrobot-admin",
+  templateUrl: "./admin.component.html",
+  styleUrls: ["./admin.component.sass"],
 })
 export class AdminComponent implements OnInit {
+  public title = "admin"
 
   constructor() { }
 
-  ngOnInit() {
+  public ngOnInit() {
   }
 
 }

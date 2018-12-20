@@ -3,26 +3,27 @@ import { APOLLO_OPTIONS, ApolloModule } from "apollo-angular"
 import { HttpLink, HttpLinkModule } from "apollo-angular-link-http"
 import { ApolloClientOptions } from "apollo-client"
 import { ApolloLink } from "apollo-link"
+import { environment } from "src/environments/environment"
 import { cache, stateLink } from "./cache"
 import { SettingsApiService } from "./settings-api.service"
 
 export function apolloFactory(httpLink: HttpLink): ApolloClientOptions<any> {
-  const http = httpLink.create({
-    uri: "http://graph.multiplayerrobot.com",
-  })
-
   return {
     cache,
-    link: ApolloLink.from([stateLink, http]),
+    link: environment.api
+      ? ApolloLink.from([
+          stateLink,
+          httpLink.create({
+            uri: environment.api,
+          }),
+        ])
+      : stateLink,
   }
 }
 
 @NgModule({
   declarations: [],
-  imports: [
-    ApolloModule,
-    HttpLinkModule,
-  ],
+  imports: [ApolloModule, HttpLinkModule],
   providers: [
     SettingsApiService,
     {
@@ -32,4 +33,4 @@ export function apolloFactory(httpLink: HttpLink): ApolloClientOptions<any> {
     },
   ],
 })
-export class GraphqlModule { }
+export class GraphqlModule {}

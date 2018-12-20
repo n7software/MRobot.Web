@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core"
 
 @Component({
-  selector: 'mrobot-boost',
-  templateUrl: './boost.component.html',
-  styleUrls: ['./boost.component.sass']
+  selector: "mrobot-boost",
+  templateUrl: "./boost.component.html",
+  styleUrls: ["./boost.component.sass"],
 })
 export class BoostComponent implements OnInit {
+  public title = "boost"
 
   constructor() { }
 
-  ngOnInit() {
+  public ngOnInit() {
   }
 
 }

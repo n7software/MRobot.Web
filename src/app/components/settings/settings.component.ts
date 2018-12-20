@@ -21,6 +21,7 @@ const discordAuthUrl = "https://discordapp.com/api/oauth2/authorize" +
   styleUrls: ["./settings.component.sass"],
 })
 export class SettingsComponent extends BaseComponent {
+  public title = "settings"
   public settings$: Observable<Settings>
 
   @ViewChild("settingsForm")
@@ -76,8 +77,12 @@ export class SettingsComponent extends BaseComponent {
     (settings.notifications as any).__typename = typename
   }
 
-  public onDiscordClick(): void {
-    window.location.href = discordAuthUrl
+  public onDiscordClick(settings: Settings): void {
+    if (!settings.discordConnected) {
+      window.location.href = discordAuthUrl
+    } else {
+      this.settingsApi.disconnectDiscord().subscribe()
+    }
   }
 
   public save(settings: Settings): void {

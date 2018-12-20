@@ -1,6 +1,11 @@
 export type Notifier = "discord" | "email"
 
-export interface NotificationSettings {
+export interface DiscordSettings {
+  showOnProfile: boolean
+  joinGDM: boolean
+}
+
+  export interface NotificationSettings {
   gameInvitations: Notifier[]
   playerJoinedGame: Notifier[]
   turn: Notifier[]
@@ -11,11 +16,17 @@ export interface NotificationSettings {
   privateMessage: Notifier[]
 }
 
-export interface Settings {
+export interface SettingsInput {
   theme: "DARK" | "LIGHT" | "KING_DARK" | "KING_LIGHT"
   vacationMode: boolean
   country: string
   availableHours: number[]
   emailAddress: string
+  discordConnected: boolean
+  discord: DiscordSettings
   notifications: NotificationSettings
+}
+
+export interface Settings extends SettingsInput {
+  discordConnected: boolean
 }

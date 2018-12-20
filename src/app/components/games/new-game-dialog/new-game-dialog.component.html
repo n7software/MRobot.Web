@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>{{ "newGame" | translate }}</h1>
+<div mat-dialog-content>
+  <mrobot-setting-row [title]="'game' | translate">
+    <mat-select>
+      <mat-option></mat-option>
+    </mat-select>
+  </mrobot-setting-row>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button cdkFocusInitial>
+    Ok
+  </button>
+</div>

@@ -31,6 +31,14 @@
             "scripts": []
           },
           "configurations": {
+            "dev": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ]
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -63,6 +71,9 @@
             "browserTarget": "mrobot-web:build"
           },
           "configurations": {
+            "dev": {
+              "browserTarget": "mrobot-web:build:dev"
+            },
             "production": {
               "browserTarget": "mrobot-web:build:production"
             }

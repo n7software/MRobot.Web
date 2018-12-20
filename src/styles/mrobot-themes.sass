@@ -19,21 +19,21 @@ $mrobot-warn-dark: mat-palette($mat-red, 400)
 
 .mrobot-LIGHT
   $primary: mat-palette($mat-light-green, 400)
-  $accent: mat-palette($mat-cyan)
+  $accent: mat-palette($mat-cyan, 600)
   $light-theme: mat-light-theme($primary, $accent, $mrobot-warn-light)
   @include angular-material-theme($light-theme)
   @include root-theme($light-theme)
   @include component-themes($light-theme)
 
-.mrobot-KINGDARK
+.mrobot-KING_DARK
   $primary: mat-palette($mat-amber)
-  $accent: mat-palette($mat-purple, A200, A100, A700)
+  $accent: mat-palette($mat-deep-purple, A100, 50, A700)
   $dark-theme: mat-dark-theme($primary, $accent, $mrobot-warn-dark)
   @include angular-material-theme($dark-theme)
   @include root-theme($dark-theme)
   @include component-themes($dark-theme)
 
-.mrobot-KINGLIGHT
+.mrobot-KING_LIGHT
   $primary: mat-palette($mat-amber)
   $accent: mat-palette($mat-purple)
   $light-theme: mat-light-theme($primary, $accent, $mrobot-warn-light)

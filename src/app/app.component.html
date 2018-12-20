@@ -1,2 +1,2 @@
-<mrobot-nav *ngIf="activatedRoute$ | async | showNav"></mrobot-nav>
-<router-outlet *ngIf="!(activatedRoute$ | async | showNav)"></router-outlet>
+<mrobot-nav *ngIf="activatedRoute | showNav"></mrobot-nav>
+<router-outlet *ngIf="!(activatedRoute | showNav)"></router-outlet>

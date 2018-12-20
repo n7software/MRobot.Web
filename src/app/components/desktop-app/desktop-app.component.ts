@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core"
 
 @Component({
-  selector: 'mrobot-desktop-app',
-  templateUrl: './desktop-app.component.html',
-  styleUrls: ['./desktop-app.component.sass']
+  selector: "mrobot-desktop-app",
+  templateUrl: "./desktop-app.component.html",
+  styleUrls: ["./desktop-app.component.sass"],
 })
 export class DesktopAppComponent implements OnInit {
+  public title = "desktopApp"
 
   constructor() { }
 
-  ngOnInit() {
+  public ngOnInit() {
   }
 
 }

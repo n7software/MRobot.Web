@@ -62,20 +62,28 @@
   <mat-sidenav-content>
     <mat-toolbar class="app-bar" color="primary">
       <button
-        class="drawer-button"
+        class="top-left-button"
         type="button"
         [attr.aria-label]="'mainMenu' | translate"
         mat-icon-button
         (click)="drawer.toggle()"
-        *ngIf="(isHandset$ | async)"
+        *ngIf="(isHandset$ | async) && !currentComponent?.showBack"
       >
         <mat-icon svgIcon="menu"></mat-icon>
       </button>
-      <span fxFlex="1 1 auto">
-        {{ activatedRoute$ | async | titleFromRouteData | translate }}
-      </span>
+      <button
+        class="top-left-button"
+        type="button"
+        [attr.aria-label]="'back' | translate"
+        mat-icon-button
+        (click)="goBack()"
+        *ngIf="(isHandset$ | async) && currentComponent?.showBack"
+      >
+        <mat-icon svgIcon="arrow-left"></mat-icon>
+      </button>
+      <span fxFlex="1 1 auto">{{ (currentComponent?.title || "loading") | translate }}</span>
     </mat-toolbar>
     <div class="mat-toolbar-row"></div>
-    <div><router-outlet></router-outlet></div>
+    <div><router-outlet (activate)="currentComponent = $event"></router-outlet></div>
   </mat-sidenav-content>
 </mat-sidenav-container>

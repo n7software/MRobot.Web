@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api: "https://graph.multiplayerrobot.com",
+  api: "http://localhost:5000",
 }

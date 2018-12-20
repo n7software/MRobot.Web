@@ -49,7 +49,7 @@ export class AppComponent extends BaseComponent {
     )
   }
 
-  private subscribeToRouteData(router): void {
+  private subscribeToRouteData(router: Router): void {
     this.activatedRoute$ = router.events.pipe(
       filter(e => e instanceof ActivationEnd),
       map((e: ActivationEnd) => e.snapshot),

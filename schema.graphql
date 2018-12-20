@@ -1,50 +1,123 @@
+type DiscordSettings {
+  showOnProfile: Boolean
+  joinGDM: Boolean
+}
+
 input NotificationSettingsInput {
-  gameInvitations: Notifier[]
-  playerJoinedGame: Notifier[]
-  turn: Notifier[]
-  gameEnded: Notifier[]
-  turnTimerModified: Notifier[]
-  skipped: Notifier[]
-  comment: Notifier[]
-  privateMessage: Notifier[]
+  gameInvitations: [Notifier]
+  playerJoinedGame: [Notifier]
+  turn: [Notifier]
+  gameEnded: [Notifier]
+  turnTimerModified: [Notifier]
+  skipped: [Notifier]
+  comment: [Notifier]
+  privateMessage: [Notifier]
 }
 
 type NotificationSettings {
-  gameInvitations: Notifier[]
-  playerJoinedGame: Notifier[]
-  turn: Notifier[]
-  gameEnded: Notifier[]
-  turnTimerModified: Notifier[]
-  skipped: Notifier[]
-  comment: Notifier[]
-  privateMessage: Notifier[]
+  gameInvitations: [Notifier]
+  playerJoinedGame: [Notifier]
+  turn: [Notifier]
+  gameEnded: [Notifier]
+  turnTimerModified: [Notifier]
+  skipped: [Notifier]
+  comment: [Notifier]
+  privateMessage: [Notifier]
+}
+
+enum JoinFilter {
+  SETTLER
+  CHIEFTAIN
+  WARLORD
+  PRINCE
+  KING
+  EMPEROR
+  IMMORTAL
+  DEITY
 }
 
 enum Notifier {
-  email
-  discord
+  EMAIL
+  DISCORD
 }
 
 enum Theme {
-  light
-  dark
-  king-light
-  king-dark
+  LIGHT
+  DARK
+  KING_LIGHT
+  KING_DARK
 }
 
 input SettingsInput {
   vacationMode: Boolean
   country: String
-  availableHours: Number[]
-  theme: Theme
+  availableHours: [Number]
+  theme: Theme!
   emailAddress: Email
   notifications: NotificationSettingsInput
+}
+
+enum GameType {
+  CIVILIZATION_V
+  CIVILIZATION_BE
+  CIVILIZATION_VI
+  CUSTOM
+}
+
+enum CivVExpansions {
+  GODS_AND_KINGS
+  BRAVE_NEW_WORLD
+  BABYLON
+  SPAIN_AND_INCA
+  POLYNESIA
+  DENMARK
+  KOREA
+  SCRAMBLED_CONTINENTS_MAP_PACK
+  SCRAMBLED_NATIONS_MAP_PACK
+  MEDITERRANEAN_MAP_PACK
+  ASIA_MAP_PACK
+  AMERICAS_MAP_PACK
+  MESOPOTAMIA_MAP_PACK
+  EXPLORERS_MAP_PACK
+}
+
+enum CivBEExpansions {
+  RISING_TIDE
+  EXOPLANETS
+}
+
+enum CivVIExpansions {
+  RISE_AND_FALL
+  GATHERING_STORM
+  KHMER_AND_INDONESIA
+  NUBIA
+  PERSIA_AND_MACEDON
+  AUSTRALIA
+  POLAND
+}
+
+type Game {
+  id: ID!
+  name: String!
+  gameType: GameType!
+  parseCivs: boolean!
+  description: String
+  createdAt: String
+  startedAt: String
+  finishedAt: String
+  hasMods: Boolean
+  showInPublic: Boolean
+  joinFilter: [JoinFilter]
+  slotLimit: Number
+  turnTimerEnabled: Boolean
+  createdFromSave: Boolean
+  multiSlotJoinAllowed: Boolean
 }
 
 type Settings {
   vacationMode: Boolean
   country: String
-  availabileHours: Number[]
+  availabileHours: [Number]
   theme: Theme
   emailAddress: Email
   notifications: NotificationSettings
@@ -54,13 +127,14 @@ type SaveSettingsResponse {
   clientMutationId: ID
 }
 
-type CompleteDiscordConnectionResponse {
+type DiscordConnectionResponse {
   clientMutationId: ID
 }
 
 type Mutation {
   saveSettings(clientMutationId: ID, input: SettingsInput): SaveSettingsResponse
-  completeDiscordConnection(clientMutationId: ID, code: ID!): CompleteDiscordConnectionResponse
+  completeDiscordConnection(clientMutationId: ID, code: ID!): DiscordConnectionResponse
+  disconnectDiscord(clientMutationId: ID): DiscordConnectionResponse
 }
 
 type Query {

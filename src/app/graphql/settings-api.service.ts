@@ -4,16 +4,22 @@ import gql from "graphql-tag"
 import { Observable } from "rxjs"
 import { map } from "rxjs/operators"
 import { v4 } from "uuid"
-import { Settings } from "../models"
+import { Settings, SettingsInput } from "../models"
+import { clientIfMocked, fnIfLive } from "./mock-utils"
 
-const LoadSettings = gql`
+export const LoadSettingsQuery = gql`
   query LoadSettings {
-    settings @client {
+    settings ${clientIfMocked} {
       vacationMode
       country
       availableHours
       theme
       emailAddress
+      discordConnected
+      discord {
+        showOnProfile
+        joinGDM
+      }
       notifications {
         gameInvitations
         playerJoinedGame
@@ -28,9 +34,25 @@ const LoadSettings = gql`
   }
 `
 
-const SaveSettings = gql`
-  mutation SaveSettings($cmid: ID, $input: SettingsInput) {
-    saveSettings(clientMutationId: $cmid, input: $input) @client {
+export const SaveSettingsQuery = gql`
+  mutation SaveSettings($clientMutationId: ID, $input: SettingsInput) {
+    saveSettings(clientMutationId: $clientMutationId, input: $input) ${clientIfMocked} {
+      clientMutationId
+    }
+  }
+`
+
+export const CompleteDiscordConnectionQuery = gql`
+  mutation CompleteDiscordConnection($clientMutationId: ID, $code: ID!) {
+    completeDiscordConnection(clientMutationId: $clientMutationId, code: $code) ${clientIfMocked} {
+      clientMutationId
+    }
+  }
+`
+
+export const DisconnectDiscordQuery = gql`
+  mutation DisconnectDiscord($clientMutationId: ID, $code: ID!) {
+    disconnectDiscord(clientMutationId: $clientMutationId) ${clientIfMocked} {
       clientMutationId
     }
   }
@@ -45,24 +67,50 @@ export class SettingsApiService {
   public load(): Observable<Settings> {
     return this.apollo
       .watchQuery<any>({
-        query: LoadSettings,
+        query: LoadSettingsQuery,
         notifyOnNetworkStatusChange: true,
       })
       .valueChanges.pipe(map(({ data }) => data.settings))
   }
 
-  public save(input: Settings): Observable<void> {
+  public save(input: SettingsInput): Observable<void> {
     const clientMutationId = v4()
     return this.apollo
       .mutate({
-        mutation: SaveSettings,
+        mutation: SaveSettingsQuery,
         variables: { clientMutationId, input },
-        optimisticResponse: {
-          __typename: "Mutation",
-          saveSettings: {
-            clientMutationId,
-            __typename: "Settings",
-          },
+        update: store => {
+          store.writeData({ data: { settings: input } })
+        },
+      })
+  }
+
+  public completeDiscordConnection(code: string): Observable<void> {
+    const clientMutationId = v4()
+    return this.apollo
+      .mutate({
+        mutation: CompleteDiscordConnectionQuery,
+        variables: { clientMutationId, code },
+      })
+  }
+
+  public disconnectDiscord(): Observable<void> {
+    const clientMutationId = v4()
+    return this.apollo
+      .mutate({
+        mutation: CompleteDiscordConnectionQuery,
+        variables: { clientMutationId },
+        update: store => {
+          const settings = store.readQuery<any>({ query: LoadSettingsQuery }).settings as Settings
+          settings.discordConnected = false
+
+          const typename = (settings.notifications as any).__typename
+          delete (settings.notifications as any).__typename
+          Object.keys(settings.notifications).forEach(key =>
+            settings.notifications[key] = settings.notifications[key].filter(n => n !== "discord"))
+          ; (settings.notifications as any).__typename = typename
+
+          store.writeQuery({ query: LoadSettingsQuery, data: { settings } })
         },
       })
   }

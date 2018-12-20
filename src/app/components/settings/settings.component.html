@@ -92,12 +92,48 @@
         <button
           mat-flat-button
           class="discord-connect"
-          (click)="onDiscordClick()"
+          (click)="onDiscordClick(settings)"
+          [disabled]="settingsForm.dirty"
         >
           <mat-icon svgIcon="discord"></mat-icon>
-          {{ "connect" | translate | uppercase }}
+          {{
+            (settings.discordConnected ? "disconnect" : "connect")
+              | translate
+              | uppercase
+          }}
         </button>
+        <div class="mat-small discord-note" *ngIf="settingsForm.dirty">
+          {{
+            (settings.discordConnected
+              ? "saveBeforeDiscordDisconnect"
+              : "saveBeforeDiscordConnect") | translate
+          }}
+        </div>
       </mrobot-setting-row>
+      <div *ngIf="settings.discordConnected">
+        <mrobot-setting-row
+          [title]="'showDiscordOnProfile' | translate"
+          [description]="'showDiscordOnProfileDescription' | translate"
+        >
+          <mat-slide-toggle
+            color="accent"
+            name="discord.showOnProfile"
+            [aria-label]="'showDiscordOnProfile' | translate"
+            [(ngModel)]="settings.discord.showOnProfile"
+          ></mat-slide-toggle>
+        </mrobot-setting-row>
+        <mrobot-setting-row
+          [title]="'joinGDM' | translate"
+          [description]="'joinGDMDescription' | translate"
+        >
+          <mat-slide-toggle
+            color="accent"
+            name="discord.joinGDM"
+            [aria-label]="'joinGDM' | translate"
+            [(ngModel)]="settings.discord.joinGDM"
+          ></mat-slide-toggle>
+        </mrobot-setting-row>
+      </div>
     </mat-card>
     <mat-card>
       <mat-card-title class="mat-title">
@@ -148,7 +184,11 @@
           >
             <mat-icon svgIcon="email"></mat-icon>
           </mat-button-toggle>
-          <mat-button-toggle color="accent" value="discord">
+          <mat-button-toggle
+            color="accent"
+            value="discord"
+            [disabled]="!settings.discordConnected"
+          >
             <mat-icon svgIcon="discord"></mat-icon>
           </mat-button-toggle>
         </mat-button-toggle-group>
@@ -167,7 +207,11 @@
           >
             <mat-icon svgIcon="email"></mat-icon>
           </mat-button-toggle>
-          <mat-button-toggle color="accent" value="discord">
+          <mat-button-toggle
+            color="accent"
+            value="discord"
+            [disabled]="!settings.discordConnected"
+          >
             <mat-icon svgIcon="discord"></mat-icon>
           </mat-button-toggle>
         </mat-button-toggle-group>
@@ -186,7 +230,11 @@
           >
             <mat-icon svgIcon="email"></mat-icon>
           </mat-button-toggle>
-          <mat-button-toggle color="accent" value="discord">
+          <mat-button-toggle
+            color="accent"
+            value="discord"
+            [disabled]="!settings.discordConnected"
+          >
             <mat-icon svgIcon="discord"></mat-icon>
           </mat-button-toggle>
         </mat-button-toggle-group>
@@ -205,7 +253,11 @@
           >
             <mat-icon svgIcon="email"></mat-icon>
           </mat-button-toggle>
-          <mat-button-toggle color="accent" value="discord">
+          <mat-button-toggle
+            color="accent"
+            value="discord"
+            [disabled]="!settings.discordConnected"
+          >
             <mat-icon svgIcon="discord"></mat-icon>
           </mat-button-toggle>
         </mat-button-toggle-group>
@@ -224,7 +276,11 @@
           >
             <mat-icon svgIcon="email"></mat-icon>
           </mat-button-toggle>
-          <mat-button-toggle color="accent" value="discord">
+          <mat-button-toggle
+            color="accent"
+            value="discord"
+            [disabled]="!settings.discordConnected"
+          >
             <mat-icon svgIcon="discord"></mat-icon>
           </mat-button-toggle>
         </mat-button-toggle-group>
@@ -243,7 +299,11 @@
           >
             <mat-icon svgIcon="email"></mat-icon>
           </mat-button-toggle>
-          <mat-button-toggle color="accent" value="discord">
+          <mat-button-toggle
+            color="accent"
+            value="discord"
+            [disabled]="!settings.discordConnected"
+          >
             <mat-icon svgIcon="discord"></mat-icon>
           </mat-button-toggle>
         </mat-button-toggle-group>
@@ -262,7 +322,11 @@
           >
             <mat-icon svgIcon="email"></mat-icon>
           </mat-button-toggle>
-          <mat-button-toggle color="accent" value="discord">
+          <mat-button-toggle
+            color="accent"
+            value="discord"
+            [disabled]="!settings.discordConnected"
+          >
             <mat-icon svgIcon="discord"></mat-icon>
           </mat-button-toggle>
         </mat-button-toggle-group>
@@ -281,7 +345,11 @@
           >
             <mat-icon svgIcon="email"></mat-icon>
           </mat-button-toggle>
-          <mat-button-toggle color="accent" value="discord">
+          <mat-button-toggle
+            color="accent"
+            value="discord"
+            [disabled]="!settings.discordConnected"
+          >
             <mat-icon svgIcon="discord"></mat-icon>
           </mat-button-toggle>
         </mat-button-toggle-group>
