@@ -38,14 +38,20 @@ export class AppComponent extends BaseComponent {
     translate.use(langs.find(lang => lang === browserLang) || "en-US")
   }
 
-  private subscribeToTheme(settingsApi: SettingsApiService, element: HTMLElement): void {
+  private subscribeToTheme(
+    settingsApi: SettingsApiService,
+    element: HTMLElement,
+  ): void {
     this.subscriptions.push(
-      settingsApi.load().pipe(map(settings => settings.theme)).subscribe(theme => {
-        while (element.classList.length > 0) {
-          element.classList.remove(element.classList.item(0))
-        }
-        element.classList.add(`mrobot-${theme}`)
-      }),
+      settingsApi
+        .load()
+        .pipe(map(settings => settings.theme))
+        .subscribe(theme => {
+          while (element.classList.length > 0) {
+            element.classList.remove(element.classList.item(0))
+          }
+          element.classList.add(`mrobot-${theme}`)
+        }),
     )
   }
 

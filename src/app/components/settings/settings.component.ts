@@ -9,7 +9,8 @@ import { SettingsApiService } from "src/app/graphql/settings-api.service"
 import { Notifier, Settings } from "src/app/models"
 import { BaseComponent } from "../base.component"
 
-const discordAuthUrl = "https://discordapp.com/api/oauth2/authorize" +
+const discordAuthUrl =
+  "https://discordapp.com/api/oauth2/authorize" +
   "?client_id=520715807374704640" +
   `&redirect_uri=${encodeURIComponent(window.location.origin)}%2Fdiscord` +
   "&response_type=code" +
@@ -66,15 +67,17 @@ export class SettingsComponent extends BaseComponent {
     const typename = (settings.notifications as any).__typename
     delete (settings.notifications as any).__typename
     if (event.checked) {
-      settings.notifications = mapValues(settings.notifications, notifiers =>
-        ([ ...(notifiers || []), "email" as Notifier ]),
-      )
+      settings.notifications = mapValues(settings.notifications, notifiers => [
+        ...(notifiers || []),
+        "email" as Notifier,
+      ])
     } else {
-      settings.notifications = mapValues(settings.notifications, notifiers =>
-        notifiers && filter(notifiers, n => n !== "email"),
+      settings.notifications = mapValues(
+        settings.notifications,
+        notifiers => notifiers && filter(notifiers, n => n !== "email"),
       )
     }
-    (settings.notifications as any).__typename = typename
+    ;(settings.notifications as any).__typename = typename
   }
 
   public onDiscordClick(settings: Settings): void {
@@ -90,10 +93,9 @@ export class SettingsComponent extends BaseComponent {
       settings.emailAddress = this.emailNotifications
         ? settings.emailAddress
         : null
-      this.settingsApi.save(settings).subscribe(
-        () => this.setupFormInitialState(),
-        () => {},
-      )
+      this.settingsApi
+        .save(settings)
+        .subscribe(() => this.setupFormInitialState(), () => {})
     }
   }
 }

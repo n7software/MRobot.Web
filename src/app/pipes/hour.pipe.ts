@@ -10,5 +10,4 @@ export class HourPipe implements PipeTransform {
   public transform(value: number): string {
     return formatDate(new Date(2000, 0, 1, value), "h a", this.locale)
   }
-
 }

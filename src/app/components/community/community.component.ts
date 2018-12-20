@@ -8,9 +8,7 @@ import { Component, OnInit } from "@angular/core"
 export class CommunityComponent implements OnInit {
   public title = "community"
 
-  constructor() { }
+  constructor() {}
 
-  public ngOnInit() {
-  }
-
+  public ngOnInit() {}
 }

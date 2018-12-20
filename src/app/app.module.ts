@@ -43,8 +43,8 @@ import { SettingsComponent } from "./components/settings/settings.component"
 import { GraphqlModule } from "./graphql/graphql.module"
 import { HourPipe } from "./pipes/hour.pipe"
 import { RouteIsSelectedPipe } from "./pipes/route-is-selected.pipe"
-import { ShowNavPipe } from "./pipes/show-nav.pipe";
-import { NewGameDialogComponent } from './components/games/new-game-dialog/new-game-dialog.component'
+import { ShowNavPipe } from "./pipes/show-nav.pipe"
+import { NewGameDialogComponent } from "./components/games/new-game-dialog/new-game-dialog.component"
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http)
@@ -104,7 +104,10 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatBadgeModule,
   ],
   providers: [
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: "fill" } },
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { appearance: "fill" },
+    },
   ],
   bootstrap: [AppComponent],
 })

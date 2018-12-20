@@ -5,7 +5,7 @@ export interface DiscordSettings {
   joinGDM: boolean
 }
 
-  export interface NotificationSettings {
+export interface NotificationSettings {
   gameInvitations: Notifier[]
   playerJoinedGame: Notifier[]
   turn: Notifier[]

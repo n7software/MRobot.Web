@@ -8,9 +8,7 @@ import { Component, OnInit } from "@angular/core"
 export class PublicGamesComponent implements OnInit {
   public title = "publicGames"
 
-  constructor() { }
+  constructor() {}
 
-  public ngOnInit() {
-  }
-
+  public ngOnInit() {}
 }

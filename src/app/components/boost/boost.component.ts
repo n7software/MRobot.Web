@@ -8,9 +8,7 @@ import { Component, OnInit } from "@angular/core"
 export class BoostComponent implements OnInit {
   public title = "boost"
 
-  constructor() { }
+  constructor() {}
 
-  public ngOnInit() {
-  }
-
+  public ngOnInit() {}
 }

@@ -60,9 +60,7 @@ export const DisconnectDiscordQuery = gql`
 
 @Injectable()
 export class SettingsApiService {
-  constructor(
-    private apollo: Apollo,
-  ) {}
+  constructor(private apollo: Apollo) {}
 
   public load(): Observable<Settings> {
     return this.apollo
@@ -75,43 +73,45 @@ export class SettingsApiService {
 
   public save(input: SettingsInput): Observable<void> {
     const clientMutationId = v4()
-    return this.apollo
-      .mutate({
-        mutation: SaveSettingsQuery,
-        variables: { clientMutationId, input },
-        update: store => {
-          store.writeData({ data: { settings: input } })
-        },
-      })
+    return this.apollo.mutate({
+      mutation: SaveSettingsQuery,
+      variables: { clientMutationId, input },
+      update: store => {
+        store.writeData({ data: { settings: input } })
+      },
+    })
   }
 
   public completeDiscordConnection(code: string): Observable<void> {
     const clientMutationId = v4()
-    return this.apollo
-      .mutate({
-        mutation: CompleteDiscordConnectionQuery,
-        variables: { clientMutationId, code },
-      })
+    return this.apollo.mutate({
+      mutation: CompleteDiscordConnectionQuery,
+      variables: { clientMutationId, code },
+    })
   }
 
   public disconnectDiscord(): Observable<void> {
     const clientMutationId = v4()
-    return this.apollo
-      .mutate({
-        mutation: CompleteDiscordConnectionQuery,
-        variables: { clientMutationId },
-        update: store => {
-          const settings = store.readQuery<any>({ query: LoadSettingsQuery }).settings as Settings
-          settings.discordConnected = false
+    return this.apollo.mutate({
+      mutation: CompleteDiscordConnectionQuery,
+      variables: { clientMutationId },
+      update: store => {
+        const settings = store.readQuery<any>({ query: LoadSettingsQuery })
+          .settings as Settings
+        settings.discordConnected = false
 
-          const typename = (settings.notifications as any).__typename
-          delete (settings.notifications as any).__typename
-          Object.keys(settings.notifications).forEach(key =>
-            settings.notifications[key] = settings.notifications[key].filter(n => n !== "discord"))
-          ; (settings.notifications as any).__typename = typename
+        const typename = (settings.notifications as any).__typename
+        delete (settings.notifications as any).__typename
+        Object.keys(settings.notifications).forEach(
+          key =>
+            (settings.notifications[key] = settings.notifications[key].filter(
+              n => n !== "discord",
+            )),
+        )
+        ;(settings.notifications as any).__typename = typename
 
-          store.writeQuery({ query: LoadSettingsQuery, data: { settings } })
-        },
-      })
+        store.writeQuery({ query: LoadSettingsQuery, data: { settings } })
+      },
+    })
   }
 }

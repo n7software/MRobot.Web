@@ -1,25 +1,24 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing"
 
-import { DesktopAppComponent } from './desktop-app.component';
+import { DesktopAppComponent } from "./desktop-app.component"
 
-describe('DesktopAppComponent', () => {
-  let component: DesktopAppComponent;
-  let fixture: ComponentFixture<DesktopAppComponent>;
+describe("DesktopAppComponent", () => {
+  let component: DesktopAppComponent
+  let fixture: ComponentFixture<DesktopAppComponent>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DesktopAppComponent ]
-    })
-    .compileComponents();
-  }));
+      declarations: [DesktopAppComponent],
+    }).compileComponents()
+  }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DesktopAppComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(DesktopAppComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  it("should create", () => {
+    expect(component).toBeTruthy()
+  })
+})

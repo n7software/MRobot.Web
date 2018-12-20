@@ -17,9 +17,11 @@ export class DiscordComponent implements OnInit {
     if (this.activatedRoute.snapshot.queryParamMap.get("error")) {
       this.navigate()
     } else if (this.activatedRoute.snapshot.queryParamMap.get("code")) {
-      this.settingsApi.completeDiscordConnection(
-        this.activatedRoute.snapshot.queryParamMap.get("code"),
-      ).subscribe(() => this.navigate())
+      this.settingsApi
+        .completeDiscordConnection(
+          this.activatedRoute.snapshot.queryParamMap.get("code"),
+        )
+        .subscribe(() => this.navigate())
     }
   }
 

@@ -2,11 +2,7 @@ import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout"
 import { Location } from "@angular/common"
 import { Component, ViewChild } from "@angular/core"
 import { MatSidenav } from "@angular/material"
-import {
-  ActivatedRouteSnapshot,
-  ActivationEnd,
-  Router,
-} from "@angular/router"
+import { ActivatedRouteSnapshot, ActivationEnd, Router } from "@angular/router"
 import { Observable, of } from "rxjs"
 import { filter, first, map, tap } from "rxjs/operators"
 

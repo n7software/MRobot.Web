@@ -7,9 +7,7 @@ import { Component, OnInit } from "@angular/core"
 })
 export class GameDetailComponent implements OnInit {
   public showBack = true
-  constructor() { }
+  constructor() {}
 
-  public ngOnInit() {
-  }
-
+  public ngOnInit() {}
 }
