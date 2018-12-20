@@ -1,14 +1,15 @@
 <h1 mat-dialog-title>{{ "newGame" | translate }}</h1>
 <div mat-dialog-content>
-  <mrobot-setting-row [title]="'game' | translate">
+  <mat-form-field color="accent">
+    <mat-label>{{ "game" | translate }}</mat-label>
     <mat-select>
-      <mat-option></mat-option>
+      <mat-option>{{ "civilizationVI" | translate }}</mat-option>
+      <mat-option>{{ "civilizationBE" | translate }}</mat-option>
+      <mat-option>{{ "civilizationV" | translate }}</mat-option>
     </mat-select>
-  </mrobot-setting-row>
+  </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button cdkFocusInitial>
-    Ok
-  </button>
+  <button mat-button>No Thanks</button>
+  <button mat-button cdkFocusInitial>Ok</button>
 </div>

@@ -12,6 +12,7 @@ import {
   MatButtonModule,
   MatButtonToggleModule,
   MatCardModule,
+  MatDialogModule,
   MatIconModule,
   MatInputModule,
   MatListModule,
@@ -34,6 +35,7 @@ import { DesktopAppComponent } from "./components/desktop-app/desktop-app.compon
 import { DiscordComponent } from "./components/discord/discord.component"
 import { GameDetailComponent } from "./components/game-detail/game-detail.component"
 import { GamesComponent } from "./components/games/games.component"
+import { NewGameDialogComponent } from "./components/games/new-game-dialog/new-game-dialog.component"
 import { HelpComponent } from "./components/help/help.component"
 import { NavComponent } from "./components/nav/nav.component"
 import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component"
@@ -44,7 +46,6 @@ import { GraphqlModule } from "./graphql/graphql.module"
 import { HourPipe } from "./pipes/hour.pipe"
 import { RouteIsSelectedPipe } from "./pipes/route-is-selected.pipe"
 import { ShowNavPipe } from "./pipes/show-nav.pipe"
-import { NewGameDialogComponent } from "./components/games/new-game-dialog/new-game-dialog.component"
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http)
@@ -71,6 +72,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     GameDetailComponent,
     NewGameDialogComponent,
   ],
+  entryComponents: [NewGameDialogComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -102,6 +104,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatButtonToggleModule,
     MatTooltipModule,
     MatBadgeModule,
+    MatDialogModule,
   ],
   providers: [
     {

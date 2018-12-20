@@ -1,6 +1,5 @@
 import { ApolloCache } from "apollo-cache"
-import gql from "graphql-tag"
-import { Settings } from "src/app/models"
+import { LoadSettings_settings, Notifier } from "src/app/models"
 import { LoadSettingsQuery } from "../settings-api.service"
 
 type Resolver = (
@@ -31,7 +30,7 @@ export const serverMockResolvers: ResolverMap = {
     },
     completeDiscordConnection: (_, { clientMutationId }, { cache }) => {
       const settings = cache.readQuery<any>({ query: LoadSettingsQuery })
-        .settings as Settings
+        .settings as LoadSettings_settings
       settings.discordConnected = true
 
       const typename = (settings.notifications as any).__typename
@@ -39,7 +38,7 @@ export const serverMockResolvers: ResolverMap = {
       Object.keys(settings.notifications).forEach(
         key =>
           (settings.notifications[key] = settings.notifications[key].concat(
-            "discord",
+            Notifier.DISCORD,
           )),
       )
       ;(settings.notifications as any).__typename = typename

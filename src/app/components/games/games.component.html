@@ -1,2 +1,8 @@
-
-<button mat-fab class="docked-fab"><mat-icon svgIcon="plus"></mat-icon></button>
+<button
+  mat-fab
+  class="docked-fab"
+  [matTooltip]="'newGame' | translate"
+  (click)="createGame()"
+>
+  <mat-icon svgIcon="plus"></mat-icon>
+</button>

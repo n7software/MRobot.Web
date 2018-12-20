@@ -13,6 +13,8 @@ export class GamesComponent {
   constructor(private dialog: MatDialog) {}
 
   public createGame(): void {
-    const dialogRef = this.dialog.open(NewGameDialogComponent, {})
+    const dialogRef = this.dialog.open(NewGameDialogComponent, {
+      width: "600px",
+    })
   }
 }

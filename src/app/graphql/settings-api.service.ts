@@ -4,8 +4,8 @@ import gql from "graphql-tag"
 import { Observable } from "rxjs"
 import { map } from "rxjs/operators"
 import { v4 } from "uuid"
-import { Settings, SettingsInput } from "../models"
-import { clientIfMocked, fnIfLive } from "./mock-utils"
+import { LoadSettings_settings, Notifier, SettingsInput } from "../models"
+import { clientIfMocked } from "./mock-utils"
 
 export const LoadSettingsQuery = gql`
   query LoadSettings {
@@ -51,7 +51,7 @@ export const CompleteDiscordConnectionQuery = gql`
 `
 
 export const DisconnectDiscordQuery = gql`
-  mutation DisconnectDiscord($clientMutationId: ID, $code: ID!) {
+  mutation DisconnectDiscord($clientMutationId: ID) {
     disconnectDiscord(clientMutationId: $clientMutationId) ${clientIfMocked} {
       clientMutationId
     }
@@ -62,7 +62,7 @@ export const DisconnectDiscordQuery = gql`
 export class SettingsApiService {
   constructor(private apollo: Apollo) {}
 
-  public load(): Observable<Settings> {
+  public load(): Observable<LoadSettings_settings> {
     return this.apollo
       .watchQuery<any>({
         query: LoadSettingsQuery,
@@ -97,7 +97,7 @@ export class SettingsApiService {
       variables: { clientMutationId },
       update: store => {
         const settings = store.readQuery<any>({ query: LoadSettingsQuery })
-          .settings as Settings
+          .settings as LoadSettings_settings
         settings.discordConnected = false
 
         const typename = (settings.notifications as any).__typename
@@ -105,7 +105,7 @@ export class SettingsApiService {
         Object.keys(settings.notifications).forEach(
           key =>
             (settings.notifications[key] = settings.notifications[key].filter(
-              n => n !== "discord",
+              n => n !== Notifier.DISCORD,
             )),
         )
         ;(settings.notifications as any).__typename = typename
