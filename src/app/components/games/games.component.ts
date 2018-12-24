@@ -14,7 +14,7 @@ export class GamesComponent {
 
   public createGame(): void {
     const dialogRef = this.dialog.open(NewGameDialogComponent, {
-      width: "600px",
+      width: "350px",
     })
   }
 }

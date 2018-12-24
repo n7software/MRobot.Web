@@ -38,8 +38,8 @@ export class SettingsComponent extends BaseComponent {
   public hours = range(24)
 
   constructor(
+    public countryService: CountryService,
     private settingsApi: SettingsApiService,
-    private countryService: CountryService,
   ) {
     super()
     setTimeout(

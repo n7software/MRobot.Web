@@ -1,15 +1,51 @@
 <h1 mat-dialog-title>{{ "newGame" | translate }}</h1>
 <div mat-dialog-content>
-  <mat-form-field color="accent">
-    <mat-label>{{ "game" | translate }}</mat-label>
-    <mat-select>
-      <mat-option>{{ "civilizationVI" | translate }}</mat-option>
-      <mat-option>{{ "civilizationBE" | translate }}</mat-option>
-      <mat-option>{{ "civilizationV" | translate }}</mat-option>
-    </mat-select>
-  </mat-form-field>
+  <form #newGameForm="ngForm">
+    <div class="new-game-field">
+      <mat-form-field>
+        <mat-label>{{ "name" | translate }}</mat-label>
+        <input
+          matInput
+          required
+          cdkFocusInitial
+          name="name"
+          [(ngModel)]="name"
+        />
+      </mat-form-field>
+    </div>
+    <div class="new-game-field">
+      <mat-form-field>
+        <mat-label>{{ "game" | translate }}</mat-label>
+        <mat-select required name="selectedGame" [(ngModel)]="selectedGame">
+          <mat-select-trigger>
+            <div fxLayout="row" fxLayoutAlign="start center">
+              <mat-icon
+                fxLayoutAlign="center"
+                class="selected-game-icon"
+                [svgIcon]="selectedGame?.icon"
+              ></mat-icon>
+              {{ selectedGame?.name | translate }}
+            </div>
+          </mat-select-trigger>
+          <mat-option *ngFor="let game of games" [value]="game">
+            <mat-icon [svgIcon]="game.icon"></mat-icon>
+            {{ game.name | translate }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
 </div>
-<div mat-dialog-actions>
-  <button mat-button>No Thanks</button>
-  <button mat-button cdkFocusInitial>Ok</button>
+<div mat-dialog-actions fxLayout="row-reverse">
+  <button
+    mat-button
+    color="primary"
+    (click)="onOkClick()"
+    [disabled]="newGameForm.invalid"
+  >
+    {{ "ok" | translate | uppercase }}
+  </button>
+  <button mat-button color="primary" (click)="onCancelClick()">
+    {{ "cancel" | translate | uppercase }}
+  </button>
 </div>

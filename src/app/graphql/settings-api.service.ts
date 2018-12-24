@@ -7,57 +7,6 @@ import { v4 } from "uuid"
 import { LoadSettings_settings, Notifier, SettingsInput } from "../models"
 import { clientIfMocked } from "./mock-utils"
 
-export const LoadSettingsQuery = gql`
-  query LoadSettings {
-    settings ${clientIfMocked} {
-      vacationMode
-      country
-      availableHours
-      theme
-      emailAddress
-      discordConnected
-      discord {
-        showOnProfile
-        joinGDM
-      }
-      notifications {
-        gameInvitations
-        playerJoinedGame
-        turn
-        gameEnded
-        turnTimerModified
-        skipped
-        comment
-        privateMessage
-      }
-    }
-  }
-`
-
-export const SaveSettingsQuery = gql`
-  mutation SaveSettings($clientMutationId: ID, $input: SettingsInput) {
-    saveSettings(clientMutationId: $clientMutationId, input: $input) ${clientIfMocked} {
-      clientMutationId
-    }
-  }
-`
-
-export const CompleteDiscordConnectionQuery = gql`
-  mutation CompleteDiscordConnection($clientMutationId: ID, $code: ID!) {
-    completeDiscordConnection(clientMutationId: $clientMutationId, code: $code) ${clientIfMocked} {
-      clientMutationId
-    }
-  }
-`
-
-export const DisconnectDiscordQuery = gql`
-  mutation DisconnectDiscord($clientMutationId: ID) {
-    disconnectDiscord(clientMutationId: $clientMutationId) ${clientIfMocked} {
-      clientMutationId
-    }
-  }
-`
-
 @Injectable()
 export class SettingsApiService {
   constructor(private apollo: Apollo) {}
@@ -115,3 +64,54 @@ export class SettingsApiService {
     })
   }
 }
+
+export const LoadSettingsQuery = gql`
+  query LoadSettings {
+    settings ${clientIfMocked} {
+      vacationMode
+      country
+      availableHours
+      theme
+      emailAddress
+      discordConnected
+      discord {
+        showOnProfile
+        joinGDM
+      }
+      notifications {
+        gameInvitations
+        playerJoinedGame
+        turn
+        gameEnded
+        turnTimerModified
+        skipped
+        comment
+        privateMessage
+      }
+    }
+  }
+`
+
+export const SaveSettingsQuery = gql`
+  mutation SaveSettings($clientMutationId: ID, $input: SettingsInput) {
+    saveSettings(clientMutationId: $clientMutationId, input: $input) ${clientIfMocked} {
+      clientMutationId
+    }
+  }
+`
+
+export const CompleteDiscordConnectionQuery = gql`
+  mutation CompleteDiscordConnection($clientMutationId: ID, $code: ID!) {
+    completeDiscordConnection(clientMutationId: $clientMutationId, code: $code) ${clientIfMocked} {
+      clientMutationId
+    }
+  }
+`
+
+export const DisconnectDiscordQuery = gql`
+  mutation DisconnectDiscord($clientMutationId: ID) {
+    disconnectDiscord(clientMutationId: $clientMutationId) ${clientIfMocked} {
+      clientMutationId
+    }
+  }
+`

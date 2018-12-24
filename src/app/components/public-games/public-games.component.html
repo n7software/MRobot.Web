@@ -1,3 +1,8 @@
-<p>
-  public-games works!
-</p>
+<button
+  mat-fab
+  class="docked-fab"
+  [matTooltip]="'filter' | translate"
+  (click)="createGame()"
+>
+  <mat-icon svgIcon="filter"></mat-icon>
+</button>

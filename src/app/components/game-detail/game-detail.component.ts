@@ -7,6 +7,7 @@ import { Component, OnInit } from "@angular/core"
 })
 export class GameDetailComponent implements OnInit {
   public showBack = true
+  public flatAppBar = true
   constructor() {}
 
   public ngOnInit() {}

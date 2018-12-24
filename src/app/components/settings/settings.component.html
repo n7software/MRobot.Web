@@ -1,6 +1,13 @@
+<ng-template #loadingBar>
+  <mat-progress-bar
+    class="loading-indicator"
+    mode="indeterminate"
+    color="accent"
+  ></mat-progress-bar>
+</ng-template>
 <form #settingsForm="ngForm" fxLayout="row" fxLayoutAlign="center">
   <div
-    *ngIf="(settings$ | async); let settings"
+    *ngIf="(settings$ | async); let settings; else: loadingBar"
     fxFlex="0 1 640px"
     fxFlexAlign="center"
     class="settings-panel"
@@ -17,7 +24,7 @@
         [description]="'vacationModeDescription' | translate"
       >
         <mat-slide-toggle
-          color="accent"
+          color="primary"
           name="vacationMode"
           [aria-label]="'vacationMode' | translate"
           [(ngModel)]="settings.vacationMode"
@@ -28,10 +35,18 @@
         [title]="'country' | translate"
         [description]="'countryDescription' | translate"
       >
-        <mat-form-field color="accent">
+        <mat-form-field>
           <mat-label>{{ "country" | translate }}</mat-label>
           <mat-select name="country" [(ngModel)]="settings.country">
-            <mat-option>{{ "unspecified" | translate }}</mat-option>
+            <mat-select-trigger>
+              <img
+                *ngIf="settings.country"
+                class="flag-img"
+                [src]="countryService.getFlagImgForCode(settings.country)"
+              />
+              {{ "countryCode." + settings.country | translate }}
+            </mat-select-trigger>
+            <mat-option [value]="null">{{ "unspecified" | translate }}</mat-option>
             <mat-option
               *ngFor="let country of countries"
               [value]="country.code"
@@ -66,7 +81,7 @@
         [title]="'webAppTheme' | translate"
         [description]="'webAppThemeDescription' | translate"
       >
-        <mat-form-field color="accent">
+        <mat-form-field>
           <mat-label>{{ "theme" | translate }}</mat-label>
           <mat-select name="theme" [(ngModel)]="settings.theme">
             <mat-option value="DARK">{{ "dark" | translate }}</mat-option>
@@ -118,7 +133,7 @@
           [description]="'showDiscordOnProfileDescription' | translate"
         >
           <mat-slide-toggle
-            color="accent"
+            color="primary"
             name="discord.showOnProfile"
             [aria-label]="'showDiscordOnProfile' | translate"
             [(ngModel)]="settings.discord.showOnProfile"
@@ -129,7 +144,7 @@
           [description]="'joinGDMDescription' | translate"
         >
           <mat-slide-toggle
-            color="accent"
+            color="primary"
             name="discord.joinGDM"
             [aria-label]="'joinGDM' | translate"
             [(ngModel)]="settings.discord.joinGDM"
@@ -146,7 +161,7 @@
         [description]="'emailDescription' | translate"
       >
         <mat-slide-toggle
-          color="accent"
+          color="primary"
           [aria-label]="'email' | translate"
           name="emailNotifications"
           [(ngModel)]="emailNotifications"
@@ -159,7 +174,7 @@
         [title]="'emailAddress' | translate"
         [description]="'emailAddressDescription' | translate"
       >
-        <mat-form-field color="accent">
+        <mat-form-field>
           <mat-label>{{ "email" | translate }}</mat-label>
           <input
             matInput
@@ -180,14 +195,14 @@
           [(ngModel)]="settings.notifications.gameInvitations"
         >
           <mat-button-toggle
-            color="accent"
+            color="primary"
             value="EMAIL"
             [disabled]="!emailNotifications"
           >
             <mat-icon svgIcon="email"></mat-icon>
           </mat-button-toggle>
           <mat-button-toggle
-            color="accent"
+            color="primary"
             value="DISCORD"
             [disabled]="!settings.discordConnected"
           >
@@ -203,14 +218,14 @@
           [(ngModel)]="settings.notifications.playerJoinedGame"
         >
           <mat-button-toggle
-            color="accent"
+            color="primary"
             value="EMAIL"
             [disabled]="!emailNotifications"
           >
             <mat-icon svgIcon="email"></mat-icon>
           </mat-button-toggle>
           <mat-button-toggle
-            color="accent"
+            color="primary"
             value="DISCORD"
             [disabled]="!settings.discordConnected"
           >
@@ -226,14 +241,14 @@
           [(ngModel)]="settings.notifications.turn"
         >
           <mat-button-toggle
-            color="accent"
+            color="primary"
             value="EMAIL"
             [disabled]="!emailNotifications"
           >
             <mat-icon svgIcon="email"></mat-icon>
           </mat-button-toggle>
           <mat-button-toggle
-            color="accent"
+            color="primary"
             value="DISCORD"
             [disabled]="!settings.discordConnected"
           >
@@ -249,14 +264,14 @@
           [(ngModel)]="settings.notifications.gameEnded"
         >
           <mat-button-toggle
-            color="accent"
+            color="primary"
             value="EMAIL"
             [disabled]="!emailNotifications"
           >
             <mat-icon svgIcon="email"></mat-icon>
           </mat-button-toggle>
           <mat-button-toggle
-            color="accent"
+            color="primary"
             value="DISCORD"
             [disabled]="!settings.discordConnected"
           >
@@ -272,14 +287,14 @@
           [(ngModel)]="settings.notifications.turnTimerModified"
         >
           <mat-button-toggle
-            color="accent"
+            color="primary"
             value="EMAIL"
             [disabled]="!emailNotifications"
           >
             <mat-icon svgIcon="email"></mat-icon>
           </mat-button-toggle>
           <mat-button-toggle
-            color="accent"
+            color="primary"
             value="DISCORD"
             [disabled]="!settings.discordConnected"
           >
@@ -295,14 +310,14 @@
           [(ngModel)]="settings.notifications.skipped"
         >
           <mat-button-toggle
-            color="accent"
+            color="primary"
             value="EMAIL"
             [disabled]="!emailNotifications"
           >
             <mat-icon svgIcon="email"></mat-icon>
           </mat-button-toggle>
           <mat-button-toggle
-            color="accent"
+            color="primary"
             value="DISCORD"
             [disabled]="!settings.discordConnected"
           >
@@ -318,14 +333,14 @@
           [(ngModel)]="settings.notifications.comment"
         >
           <mat-button-toggle
-            color="accent"
+            color="primary"
             value="EMAIL"
             [disabled]="!emailNotifications"
           >
             <mat-icon svgIcon="email"></mat-icon>
           </mat-button-toggle>
           <mat-button-toggle
-            color="accent"
+            color="primary"
             value="DISCORD"
             [disabled]="!settings.discordConnected"
           >
@@ -341,14 +356,14 @@
           [(ngModel)]="settings.notifications.privateMessage"
         >
           <mat-button-toggle
-            color="accent"
+            color="primary"
             value="EMAIL"
             [disabled]="!emailNotifications"
           >
             <mat-icon svgIcon="email"></mat-icon>
           </mat-button-toggle>
           <mat-button-toggle
-            color="accent"
+            color="primary"
             value="DISCORD"
             [disabled]="!settings.discordConnected"
           >

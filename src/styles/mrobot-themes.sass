@@ -3,7 +3,7 @@
 @include mat-core()
 
 $mrobot-warn-light: mat-palette($mat-red)
-$mrobot-warn-dark: mat-palette($mat-red, 400)
+$mrobot-warn-dark: mat-palette($mat-red, A200, A100, A700)
 
 @mixin root-theme($theme)
   body
@@ -11,14 +11,14 @@ $mrobot-warn-dark: mat-palette($mat-red, 400)
 
 .mrobot-DARK
   $primary: mat-palette($mat-light-green)
-  $accent: mat-palette($mat-cyan, A400, A200, A700)
+  $accent: mat-palette($mat-cyan, A400, 100, A700)
   $dark-theme: mat-dark-theme($primary, $accent, $mrobot-warn-dark)
   @include angular-material-theme($dark-theme)
   @include root-theme($dark-theme)
   @include component-themes($dark-theme)
 
 .mrobot-LIGHT
-  $primary: mat-palette($mat-light-green, 400)
+  $primary: mat-palette($mat-light-green, 600)
   $accent: mat-palette($mat-cyan, 600)
   $light-theme: mat-light-theme($primary, $accent, $mrobot-warn-light)
   @include angular-material-theme($light-theme)

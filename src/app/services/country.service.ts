@@ -28,7 +28,11 @@ export class CountryService {
   public countryList = values(
     mapValues(omit(countries, COUNTRY_BLACKLIST), (_country, key) => ({
       code: key,
-      smallFlag: `/assets/country-flags/${key.toLowerCase()}.png`,
+      smallFlag: this.getFlagImgForCode(key),
     })),
   )
+
+  public getFlagImgForCode(code: string): string {
+    return `/assets/country-flags/${code.toLowerCase()}.png`
+  }
 }

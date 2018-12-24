@@ -16,6 +16,8 @@ import {
   MatIconModule,
   MatInputModule,
   MatListModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
   MatRadioModule,
   MatSelectModule,
   MatSidenavModule,
@@ -105,6 +107,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatTooltipModule,
     MatBadgeModule,
     MatDialogModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
   ],
   providers: [
     {

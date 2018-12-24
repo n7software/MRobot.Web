@@ -60,7 +60,11 @@
     </div>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar class="app-bar" color="primary">
+    <mat-toolbar
+      class="app-bar"
+      [class.mat-elevation-z4]="!currentComponent?.flatAppBar"
+      color="primary"
+    >
       <button
         class="top-left-button"
         type="button"
@@ -81,9 +85,13 @@
       >
         <mat-icon svgIcon="arrow-left"></mat-icon>
       </button>
-      <span fxFlex="1 1 auto">{{ (currentComponent?.title || "loading") | translate }}</span>
+      <span fxFlex="1 1 auto">
+        {{ currentComponent?.title || "loading" | translate }}
+      </span>
     </mat-toolbar>
     <div class="mat-toolbar-row"></div>
-    <div><router-outlet (activate)="currentComponent = $event"></router-outlet></div>
+    <div>
+      <router-outlet (activate)="currentComponent = $event"></router-outlet>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
