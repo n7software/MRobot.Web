@@ -5,6 +5,7 @@ import { ApolloClientOptions } from "apollo-client"
 import { ApolloLink } from "apollo-link"
 import { environment } from "src/environments/environment"
 import { cache, stateLink } from "./cache"
+import { GamesApiService } from "./games-api.service"
 import { SettingsApiService } from "./settings-api.service"
 
 export function apolloFactory(httpLink: HttpLink): ApolloClientOptions<any> {
@@ -26,6 +27,7 @@ export function apolloFactory(httpLink: HttpLink): ApolloClientOptions<any> {
   imports: [ApolloModule, HttpLinkModule],
   providers: [
     SettingsApiService,
+    GamesApiService,
     {
       provide: APOLLO_OPTIONS,
       useFactory: apolloFactory,

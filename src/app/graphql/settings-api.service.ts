@@ -4,6 +4,7 @@ import gql from "graphql-tag"
 import { Observable } from "rxjs"
 import { map } from "rxjs/operators"
 import { v4 } from "uuid"
+
 import { LoadSettings_settings, Notifier, SettingsInput } from "../models"
 import { clientIfMocked } from "./mock-utils"
 
