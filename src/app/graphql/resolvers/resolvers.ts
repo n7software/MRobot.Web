@@ -1,5 +1,6 @@
 import { ApolloCache } from "apollo-cache"
 import { LoadSettings_settings, Notifier } from "src/app/models"
+import { v4 } from "uuid"
 import { LoadSettingsQuery } from "../settings-api.service"
 
 type Resolver = (
@@ -20,12 +21,21 @@ export const clientResolvers: ResolverMap = {}
 
 export const serverMockResolvers: ResolverMap = {
   Mutation: {
+    createGame: (_, { clientMutationId }) => {
+      return {
+        __typename: "GameMutationResponse",
+        clientMutationId,
+        game: {
+          __typename: "Game",
+          id: v4(),
+          createdAt: new Date().toISOString(),
+        },
+      }
+    },
     saveSettings: (_, { clientMutationId }) => {
       return {
-        saveSettings: {
-          __typename: "SaveSettingsResponse",
-          clientMutationId,
-        },
+        __typename: "SettingsMutationResponse",
+        clientMutationId,
       }
     },
     completeDiscordConnection: (_, { clientMutationId }, { cache }) => {
@@ -45,18 +55,14 @@ export const serverMockResolvers: ResolverMap = {
 
       cache.writeData({ data: { settings } })
       return {
-        completeDiscordConnection: {
-          __typename: "DiscordConnectionResponse",
-          clientMutationId,
-        },
+        __typename: "DiscordConnectionResponse",
+        clientMutationId,
       }
     },
     disconnectDiscord: (_, { clientMutationId }, { cache }) => {
       return {
-        disconnectDiscord: {
-          __typename: "DiscordConnectionResponse",
-          clientMutationId,
-        },
+        __typename: "DiscordConnectionResponse",
+        clientMutationId,
       }
     },
   },

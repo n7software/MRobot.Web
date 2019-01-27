@@ -1,3 +1,9 @@
+export interface Game {
+  id: string
+  name: string
+  icon: string
+}
+
 export const GAMES = {
   CIVILIZATION_VI: {
     id: "CIVILIZATION_VI",

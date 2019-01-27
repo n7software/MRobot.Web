@@ -5,7 +5,12 @@ import { Observable } from "rxjs"
 import { map } from "rxjs/operators"
 import { v4 } from "uuid"
 
-import { LoadSettings_settings, Notifier, SettingsInput } from "../models"
+import {
+  LoadSettings,
+  LoadSettings_settings,
+  Notifier,
+  SettingsInput,
+} from "../models"
 import { clientIfMocked } from "./mock-utils"
 
 @Injectable()
@@ -14,9 +19,8 @@ export class SettingsApiService {
 
   public load(): Observable<LoadSettings_settings> {
     return this.apollo
-      .watchQuery<any>({
+      .watchQuery<LoadSettings>({
         query: LoadSettingsQuery,
-        notifyOnNetworkStatusChange: true,
       })
       .valueChanges.pipe(map(({ data }) => data.settings))
   }
@@ -94,7 +98,7 @@ export const LoadSettingsQuery = gql`
 `
 
 export const SaveSettingsQuery = gql`
-  mutation SaveSettings($clientMutationId: ID, $input: SettingsInput) {
+  mutation SaveSettings($clientMutationId: ID, $input: SettingsInput!) {
     saveSettings(clientMutationId: $clientMutationId, input: $input) ${clientIfMocked} {
       clientMutationId
     }

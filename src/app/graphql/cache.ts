@@ -10,7 +10,14 @@ export let stateLink: ApolloLink
 export let cache: ApolloCache<NormalizedCacheObject>
 
 export async function initCache(): Promise<void> {
-  cache = new InMemoryCache()
+  cache = new InMemoryCache({
+    cacheRedirects: {
+      Query: {
+        game: (_, args, { getCacheKey }) =>
+          getCacheKey({ __typename: "Game", id: args.id }),
+      },
+    },
+  })
 
   stateLink = withClientState({
     cache,

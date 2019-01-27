@@ -6,6 +6,7 @@ import { TranslateService } from "@ngx-translate/core"
 import { Observable } from "rxjs"
 import { filter, map } from "rxjs/operators"
 import { BaseComponent } from "./components/base.component"
+import { GamesApiService } from "./graphql/games-api.service"
 import { SettingsApiService } from "./graphql/settings-api.service"
 import { setupSvgIcons } from "./setup-svg-icons"
 
@@ -23,6 +24,7 @@ export class AppComponent extends BaseComponent {
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
     translate: TranslateService,
+    gamesApi: GamesApiService,
     settingsApi: SettingsApiService,
     router: Router,
   ) {
@@ -36,6 +38,8 @@ export class AppComponent extends BaseComponent {
 
     const browserLang = translate.getBrowserCultureLang()
     translate.use(langs.find(lang => lang === browserLang) || "en-US")
+
+    gamesApi.list().subscribe()
   }
 
   private subscribeToTheme(

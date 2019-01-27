@@ -3,7 +3,7 @@ import { NgForm } from "@angular/forms"
 import { MatDialogRef } from "@angular/material"
 import { values } from "lodash"
 
-import { GAMES } from "src/app/data"
+import { Game, GAMES } from "src/app/data"
 
 @Component({
   selector: "mrobot-new-game-dialog",
@@ -16,9 +16,17 @@ export class NewGameDialogComponent {
 
   public games = values(GAMES)
 
+  public name: string
+  public selectedGame: Game
+
   constructor(private dialogRef: MatDialogRef<NewGameDialogComponent>) {}
 
-  public onOkClick(): void {}
+  public onOkClick(): void {
+    this.dialogRef.close({
+      name: this.name,
+      gameType: this.selectedGame.id,
+    })
+  }
 
   public onCancelClick(): void {
     this.dialogRef.close()

@@ -1,3 +1,6 @@
+scalar DateTime
+scalar Upload
+
 type DiscordSettings {
   showOnProfile: Boolean
   joinGDM: Boolean
@@ -96,23 +99,58 @@ enum CivVIExpansions {
   POLAND
 }
 
-type Game {
-  id: ID!
+input GameInput {
   name: String!
   gameType: GameType!
-  customGameType: string
-  parseCivs: Boolean!
+  customGameType: String
+  parseCivs: Boolean
   description: String
-  createdAt: String
-  startedAt: String
-  finishedAt: String
   hasMods: Boolean
   showInPublic: Boolean
   joinFilter: [JoinFilter]
   slotLimit: Int
   turnTimerEnabled: Boolean
-  createdFromSave: Boolean
+  turnTimerDays: Int
   multiSlotJoinAllowed: Boolean
+}
+
+type Game {
+  id: ID!
+  name: String!
+  gameType: GameType!
+  customGameType: String
+  parseCivs: Boolean!
+  description: String
+  createdAt: DateTime!
+  startedAt: DateTime
+  finishedAt: DateTime
+  hasMods: Boolean!
+  showInPublic: Boolean!
+  joinFilter: [JoinFilter]!
+  slotLimit: Int
+  turnTimerEnabled: Boolean!
+  turnTimerDays: Int
+  createdFromSave: Boolean!
+  multiSlotJoinAllowed: Boolean!
+  host: User
+  players: [GamePlayer]
+  turns(skip: Int, take: Int): [Turn]
+}
+
+type GamePlayer {
+  user: User
+}
+
+type User {
+  id: ID
+  username: String
+}
+
+type Turn {
+  player: GamePlayer
+  startedAt: DateTime!
+  finishedAt: DateTime
+  expiresAt: DateTime
 }
 
 type Settings {
@@ -126,7 +164,12 @@ type Settings {
   notifications: NotificationSettings
 }
 
-type SaveSettingsResponse {
+type GameMutationResponse {
+  clientMutationId: ID
+  game: Game!
+}
+
+type SettingsMutationResponse {
   clientMutationId: ID
 }
 
@@ -135,7 +178,11 @@ type DiscordConnectionResponse {
 }
 
 type Mutation {
-  saveSettings(clientMutationId: ID, input: SettingsInput): SaveSettingsResponse
+  createGame(clientMutationId: ID, input: GameInput!): GameMutationResponse
+  saveSettings(
+    clientMutationId: ID
+    input: SettingsInput!
+  ): SettingsMutationResponse
   completeDiscordConnection(
     clientMutationId: ID
     code: ID!
@@ -145,7 +192,7 @@ type Mutation {
 
 type Query {
   games: [Game]
-  getGame(id: ID!): Game
+  game(id: ID!): Game
   publicGames(skip: Int!, take: Int!): [Game]
   settings: Settings
 }

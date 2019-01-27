@@ -1,4 +1,5 @@
 export const defaults = {
+  games: [],
   settings: {
     __typename: "Settings",
     vacationMode: false,

@@ -1,8 +1,18 @@
-<button
-  mat-fab
-  class="docked-fab"
-  [matTooltip]="'newGame' | translate"
-  (click)="createGame()"
->
-  <mat-icon svgIcon="plus"></mat-icon>
-</button>
+<div *ngIf="!(games$ | async) || loading">
+  <mat-progress-bar
+    class="loading-indicator"
+    mode="indeterminate"
+    color="accent"
+  ></mat-progress-bar>
+</div>
+<div *ngIf="(games$ | async); let games">
+  <div *ngFor="let game of games">{{ game.name }}</div>
+  <button
+    mat-fab
+    class="docked-fab"
+    [matTooltip]="'newGame' | translate"
+    (click)="createGame()"
+  >
+    <mat-icon svgIcon="plus"></mat-icon>
+  </button>
+</div>

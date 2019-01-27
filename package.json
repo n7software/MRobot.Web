@@ -12,7 +12,7 @@
     "prettier": "prettier --write **/*.ts",
     "apollo-codegen": "run-s apollo-codegen-introspect apollo-codegen-generate",
     "apollo-codegen-introspect": "apollo-codegen introspect-schema schema.graphql --output schema.json",
-    "apollo-codegen-generate": "apollo-codegen generate src/app/graphql/**/*.ts --schema schema.json --target typescript --output src/app/models/graphql.ts"
+    "apollo-codegen-generate": "apollo-codegen generate src/app/graphql/**/*.ts --schema schema.json --target typescript --output src/app/models/graphql.ts --passthroughCustomScalars --customScalarsPrefix=GQL_"
   },
   "private": true,
   "dependencies": {
